@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">VoiceRecorder</string>
+    <string name="voice_recorder">Voice Recorder</string>
+    <string name="get_started">Get Started</string>
+    <string name="start_recording_now">Start Recording Now</string>
+    <string name="tap_to_start_recording">Tap to Start Recording</string>
+    <string name="pause">PAUSE</string>
+    <string name="resume">RESUME</string>
+    <string name="description_dialogue">Recording 123</string>
+    <string name="screen_on">Screen On</string>
+    <string name="pause_during_call">Pause During Call</string>
+    <string name="keep_screen_on_while_recording">Keep Screen On while Recording</string>
+    <string name="theme">Theme</string>
+    <string name="Default">default</string>
+    <string name="default_file_nmae">Default File Nmae</string>
+    <string name="recording123">Recording123</string>
+    <string name="give_feedback">Give Feedback</string>
+    <string name="rate_us">Rate Us</string>
+    <string name="tap_to_stop_recording">Tap to Stop Recording</string>
+    <string name="cancel">Cancel</string>
+    <string name="default_file_name">Default File Name</string>
+    <string name="pause_play">Pause/Play</string>
+
+</resources>
