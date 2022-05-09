@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/bottom_sheet_exit_linear"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/card_round"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- exit the app textview -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="center"
+            android:text="Exit The App ?"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <!-- No  Text View -->
+            <TextView
+                android:id="@+id/textViewNo"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_gravity="center"
+                android:layout_margin="8dp"
+
+                android:layout_weight="1"
+                android:background="@drawable/card_round"
+                android:backgroundTint="@color/dark_grey"
+                android:elevation="8dp"
+                android:fontFamily="@font/nexalight"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:text="NO"
+                android:textColor="@color/white" />
+
+            <!-- Yes Text View -->
+            <TextView
+                android:id="@+id/textViewYes"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_gravity="center"
+                android:layout_margin="8dp"
+                android:layout_weight="1"
+                android:textStyle="bold"
+                android:background="@drawable/card_round"
+                android:backgroundTint="@color/dark_grey"
+                android:elevation="8dp"
+                android:fontFamily="@font/nexalight"
+                android:gravity="center"
+                android:text="Yes"
+                android:textColor="@color/white" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

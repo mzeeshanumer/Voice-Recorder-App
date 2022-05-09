@@ -12,6 +12,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
@@ -25,6 +26,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -33,11 +35,16 @@ import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.ads.AdError;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.FullScreenContentCallback;
+import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
+import com.google.android.gms.ads.interstitial.InterstitialAd;
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -45,7 +52,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Date;
 import java.util.Locale;
-
+import android.app.Dialog;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.TextView;
 ;
 
 public class RecordingActivity extends AppCompatActivity implements View.OnClickListener,
@@ -67,7 +77,7 @@ public class RecordingActivity extends AppCompatActivity implements View.OnClick
     private TextView playerHeader, playerFilename;
     public String totalTime = "";
     private SeekBar playerseekBar;
-
+    private InterstitialAd mInterstitialAd;
     private Handler seekbarHandler;
     private Runnable updateSeekbar;
     public String recordingName = "";
@@ -78,6 +88,7 @@ public class RecordingActivity extends AppCompatActivity implements View.OnClick
     ImageButton pause_resume;
     ImageButton resume;
     AdView ad_view;
+
     public  static boolean isStopped = false;
 
     public static boolean isresumed = false;
@@ -112,6 +123,7 @@ ad_view= findViewById(R.id.ads_view);
         audioList.setAdapter(audioListAdapter);
         toolbar = findViewById(R.id.toolbar);
         settings = findViewById(R.id.settingsAction);
+        showAds();
 
         settings.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -171,6 +183,37 @@ ad_view= findViewById(R.id.ads_view);
 //                alertDialog.dismiss();
                 stopRecording();
 
+                if (mInterstitialAd != null) {
+                    mInterstitialAd.show(RecordingActivity.this);
+                    mInterstitialAd.setFullScreenContentCallback(new FullScreenContentCallback(){
+                        @Override
+                        public void onAdDismissedFullScreenContent() {
+                            // Called when fullscreen content is dismissed.
+                            Log.d("TAG", "The ad was dismissed.");
+//                            startActivity(new Intent(MainActivity.this,RecordingActivity.class));
+                            mInterstitialAd= null;
+                            showAds();
+                        }
+
+                        @Override
+                        public void onAdFailedToShowFullScreenContent(AdError adError) {
+                            // Called when fullscreen content failed to show.
+                            Log.d("TAG", "The ad failed to show.");
+                        }
+
+                        @Override
+                        public void onAdShowedFullScreenContent() {
+                            // Called when fullscreen content is shown.
+                            // Make sure to set your reference to null so you don't
+                            // show it a second time.
+                            mInterstitialAd = null;
+                            Log.d("TAG", "The ad was shown.");
+                        }
+                    });
+                }else {
+                    Log.d("TAG","THE Intertiated was not Ready yet");
+                }
+
             }
         });
 
@@ -185,7 +228,27 @@ ad_view= findViewById(R.id.ads_view);
         ad_view.loadAd(adRequest);
     }
 
+    private void showAds() {
+        AdRequest adRequest = new AdRequest.Builder().build();
 
+        InterstitialAd.load(this,"ca-app-pub-3940256099942544/1033173712", adRequest,
+                new InterstitialAdLoadCallback() {
+                    @Override
+                    public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
+                        // The mInterstitialAd reference will be null until
+                        // an ad is loaded.
+                        mInterstitialAd = interstitialAd;
+                        Log.i("TAG", "onAdLoaded");
+                    }
+
+                    @Override
+                    public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                        // Handle the error
+                        Log.i("TAG", loadAdError.getMessage());
+                        mInterstitialAd = null;
+                    }
+                });
+    }
 
 
 
@@ -451,4 +514,48 @@ ad_view= findViewById(R.id.ads_view);
         updateRunnable();
         seekbarHandler.postDelayed(updateSeekbar, 0);
     }
-}
+    @Override
+    public void onBackPressed() {
+        // calling the function
+        customExitDialog();
+    }
+
+    private void customExitDialog() {
+            // creating custom dialog
+            final Dialog dialog = new Dialog(RecordingActivity.this);
+
+
+            // setting content view to dialog
+            dialog.setContentView(R.layout.exit_dialogbox);
+
+            // getting reference of TextView
+            TextView dialogButtonYes = (TextView) dialog.findViewById(R.id.textViewYes);
+            TextView dialogButtonNo = (TextView) dialog.findViewById(R.id.textViewNo);
+
+            // click listener for No
+            dialogButtonNo.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //dismiss the dialog
+                    dialog.dismiss();
+
+                }
+            });
+
+            // click listener for Yes
+            dialogButtonYes.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // dismiss the dialog
+                    // and exit the exit
+                    dialog.dismiss();
+                    finish();
+
+                }
+            });
+
+            // show the exit dialog
+            dialog.show();
+        }
+    }
+
