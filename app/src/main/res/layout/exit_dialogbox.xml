@@ -18,10 +18,11 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
-            android:fontFamily="sans-serif-medium"
+            android:fontFamily="@font/nexalight"
             android:gravity="center"
-            android:text="Exit The App ?"
-            android:textSize="20dp"
+            android:textColor="@color/black"
+            android:text="Are You Want To Exit?"
+            android:textSize="12dp"
             android:textStyle="bold" />
 
 
@@ -35,11 +36,10 @@
             <!-- No  Text View -->
             <TextView
                 android:id="@+id/textViewNo"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_width="121dp"
+                android:layout_height="38dp"
                 android:layout_gravity="center"
                 android:layout_margin="8dp"
-
                 android:layout_weight="1"
                 android:background="@drawable/card_round"
                 android:backgroundTint="@color/dark_grey"
@@ -53,8 +53,8 @@
             <!-- Yes Text View -->
             <TextView
                 android:id="@+id/textViewYes"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_width="121dp"
+                android:layout_height="38dp"
                 android:layout_gravity="center"
                 android:layout_margin="8dp"
                 android:layout_weight="1"

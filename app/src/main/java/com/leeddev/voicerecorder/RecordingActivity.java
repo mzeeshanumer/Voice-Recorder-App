@@ -3,7 +3,9 @@ package com.leeddev.voicerecorder;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.icu.text.SimpleDateFormat;
 import android.media.MediaPlayer;
@@ -13,28 +15,24 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.Chronometer;
-import android.widget.EditText;
+
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.google.android.gms.ads.AdError;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -47,21 +45,15 @@ import com.google.android.gms.ads.interstitial.InterstitialAd;
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
+
 import java.io.IOException;
 import java.util.Date;
 import java.util.Locale;
-import android.app.Dialog;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.TextView;
-;
+
 
 public class RecordingActivity extends AppCompatActivity implements View.OnClickListener,
         AudioListAdapter.onItemListClickbabu {
     private ImageView recordBtn;
-
     private boolean isRecording = false;
     private MediaRecorder mediaRecorder;
     private String recordFile;
@@ -75,8 +67,9 @@ public class RecordingActivity extends AppCompatActivity implements View.OnClick
     private File fileToPlay;
     private ImageView playBtn;
     private TextView playerHeader, playerFilename;
-    public String totalTime = "";
     private SeekBar playerseekBar;
+    public  static boolean isStopped = false;
+    public static boolean isresumed = false;
     private InterstitialAd mInterstitialAd;
     private Handler seekbarHandler;
     private Runnable updateSeekbar;
@@ -86,27 +79,22 @@ public class RecordingActivity extends AppCompatActivity implements View.OnClick
     Toolbar toolbar;
     Dialog dialog;
     ImageButton pause_resume;
-    ImageButton resume;
     AdView ad_view;
-
-    public  static boolean isStopped = false;
-
-    public static boolean isresumed = false;
+    SharedPreferences sharedpreferences;
+    SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recording);
-ad_view= findViewById(R.id.ads_view);
+        ad_view= findViewById(R.id.ads_view);
         startRecording = findViewById(R.id.startRecordingParent);
-
         save=findViewById(R.id.btn_save);
         recordingInProgress = findViewById(R.id.recordingStartedParentView);
         recordBtn = findViewById(R.id.btn_start);
         pause_resume = (ImageButton) findViewById(R.id.btn_pause_resume);
         timer = findViewById(R.id.timer);
         recordBtn.setOnClickListener(this);
-
         dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_ACTION_BAR);
         dialog.setContentView(R.layout.player_sheet);
@@ -123,6 +111,8 @@ ad_view= findViewById(R.id.ads_view);
         audioList.setAdapter(audioListAdapter);
         toolbar = findViewById(R.id.toolbar);
         settings = findViewById(R.id.settingsAction);
+        sharedpreferences = getSharedPreferences("", Context.MODE_PRIVATE);
+        editor=sharedpreferences.edit();
         showAds();
 
         settings.setOnClickListener(new View.OnClickListener() {
@@ -266,17 +256,6 @@ ad_view= findViewById(R.id.ads_view);
                     recordingInProgress.setVisibility(View.VISIBLE);
                 }
                 break;
-
-//            case R.id.btn_stop:
-                //pause recording
-//                pauseRecording();
-//                isRecording = false;
-//                startRecording.setEnabled(true);
-//                stopBtn.setEnabled(false);
-//                showSaveRecordingDialogBox();
-//                recordingInProgress.setVisibility(View.GONE);
-//                startRecording.setVisibility(View.VISIBLE);
-//                break;
         }
     }
 
@@ -290,7 +269,11 @@ ad_view= findViewById(R.id.ads_view);
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy_MM_dd_hh_mm_ss", Locale.CANADA);
         Date now = new Date();
         String recordPath = RecordingActivity.this.getExternalFilesDir("/").getAbsolutePath();
-        recordFile = "Recording123" + formatter.format(now) + ".3gp";
+
+
+        SharedPreferences sharedPreferences=getSharedPreferences("save",MODE_PRIVATE);
+        String filename=sharedPreferences.getString("filename","rename123");
+        recordFile = filename + formatter.format(now) + ".3gp";
         mediaRecorder = new MediaRecorder();
 
         mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
