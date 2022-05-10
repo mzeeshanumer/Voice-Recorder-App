@@ -1,4 +1,4 @@
-package com.leeddev.voicerecorder;
+package com.leeddev.voicerecorder.UI;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -26,6 +26,7 @@ import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -33,6 +34,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.google.android.gms.ads.AdError;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -43,6 +45,8 @@ import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.android.gms.ads.interstitial.InterstitialAd;
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
+import com.leeddev.voicerecorder.R;
+import com.leeddev.voicerecorder.RecylerViewUtils.AudioListAdapter;
 
 import java.io.File;
 
@@ -68,12 +72,13 @@ public class RecordingActivity extends AppCompatActivity implements View.OnClick
     private ImageView playBtn;
     private TextView playerHeader, playerFilename;
     private SeekBar playerseekBar;
-    public  static boolean isStopped = false;
+    public static boolean isStopped = false;
     public static boolean isresumed = false;
     private InterstitialAd mInterstitialAd;
     private Handler seekbarHandler;
     private Runnable updateSeekbar;
     public String recordingName = "";
+    private Long lastPause;
     ImageView settings;
     ImageButton save;
     Toolbar toolbar;
@@ -87,9 +92,9 @@ public class RecordingActivity extends AppCompatActivity implements View.OnClick
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recording);
-        ad_view= findViewById(R.id.ads_view);
+        ad_view = findViewById(R.id.ads_view);
         startRecording = findViewById(R.id.startRecordingParent);
-        save=findViewById(R.id.btn_save);
+        save = findViewById(R.id.btn_save);
         recordingInProgress = findViewById(R.id.recordingStartedParentView);
         recordBtn = findViewById(R.id.btn_start);
         pause_resume = (ImageButton) findViewById(R.id.btn_pause_resume);
@@ -112,9 +117,10 @@ public class RecordingActivity extends AppCompatActivity implements View.OnClick
         toolbar = findViewById(R.id.toolbar);
         settings = findViewById(R.id.settingsAction);
         sharedpreferences = getSharedPreferences("", Context.MODE_PRIVATE);
-        editor=sharedpreferences.edit();
+        editor = sharedpreferences.edit();
         showAds();
 
+//SETTING BUTTON
         settings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -124,64 +130,44 @@ public class RecordingActivity extends AppCompatActivity implements View.OnClick
             }
         });
 
+//PAUSE AND RESUME RECORDING BUTTON
         pause_resume.findViewById(R.id.btn_pause_resume).setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onClick(View view) {
-                if (isresumed)
-                {
+                if (isresumed) {
                     resumeRecording();
 
-                    pause_resume.setImageResource(R.drawable.pause1);
+                    pause_resume.setImageResource(R.drawable.icon_pause_recording);
                     isresumed = false;
 
-
-                }
-                else {
-                    isresumed=true;
+                } else {
+                    isresumed = true;
                     pauseRecording();
                     isRecording = false;
 
-                pause_resume.setImageResource(R.drawable.play1);
+                    pause_resume.setImageResource(R.drawable.icon_resume_recording);
                 }
-                /////////
-//                isresumed = true;
-//                pauseRecording();
-//                isRecording = false;
-//                startRecording.setEnabled(true);
-//                stopBtn.setEnabled(false);
-//                showSaveRecordingDialogBox();
+
             }
         });
-
-//        pause_resume.findViewById(R.id.btn_pause_resume).setOnClickListener(new View.OnClickListener() {
-//            @RequiresApi(api = Build.VERSION_CODES.N)
-//            @Override
-//            public void onClick(View view) {
-//////                alertDialog.dismiss();
-//        isresumed= true;
-//                pauseRecording();
-//                timer.stop();
-//                isRecording= false;
-//                pause_resume.setImageResource(R.drawable.play);
-//
-//            }
-//        });
+//STOP RECORDING BUTTON /ALSO SAVE
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 //                alertDialog.dismiss();
                 stopRecording();
 
+//SHOW InterstitialAd When Clicked Stop Button
                 if (mInterstitialAd != null) {
                     mInterstitialAd.show(RecordingActivity.this);
-                    mInterstitialAd.setFullScreenContentCallback(new FullScreenContentCallback(){
+                    mInterstitialAd.setFullScreenContentCallback(new FullScreenContentCallback() {
                         @Override
                         public void onAdDismissedFullScreenContent() {
                             // Called when fullscreen content is dismissed.
                             Log.d("TAG", "The ad was dismissed.");
 //                            startActivity(new Intent(MainActivity.this,RecordingActivity.class));
-                            mInterstitialAd= null;
+                            mInterstitialAd = null;
                             showAds();
                         }
 
@@ -200,14 +186,14 @@ public class RecordingActivity extends AppCompatActivity implements View.OnClick
                             Log.d("TAG", "The ad was shown.");
                         }
                     });
-                }else {
-                    Log.d("TAG","THE Intertiated was not Ready yet");
+                } else {
+                    Log.d("TAG", "THE Intertiated was not Ready yet");
                 }
 
             }
         });
 
-        MobileAds.initialize(this, new OnInitializationCompleteListener(){
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
             @Override
             public void onInitializationComplete(InitializationStatus initializationStatus) {
             }
@@ -221,7 +207,7 @@ public class RecordingActivity extends AppCompatActivity implements View.OnClick
     private void showAds() {
         AdRequest adRequest = new AdRequest.Builder().build();
 
-        InterstitialAd.load(this,"ca-app-pub-3940256099942544/1033173712", adRequest,
+        InterstitialAd.load(this, "ca-app-pub-3940256099942544/1033173712", adRequest,
                 new InterstitialAdLoadCallback() {
                     @Override
                     public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
@@ -239,9 +225,7 @@ public class RecordingActivity extends AppCompatActivity implements View.OnClick
                     }
                 });
     }
-
-
-
+//Get Permission Before Start Recording
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onClick(View view) {
@@ -259,7 +243,7 @@ public class RecordingActivity extends AppCompatActivity implements View.OnClick
         }
     }
 
-
+//Start Recording and Get Path, Time, Date
     @SuppressLint("NewApi")
     private void startRecording() {
 
@@ -269,10 +253,8 @@ public class RecordingActivity extends AppCompatActivity implements View.OnClick
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy_MM_dd_hh_mm_ss", Locale.CANADA);
         Date now = new Date();
         String recordPath = RecordingActivity.this.getExternalFilesDir("/").getAbsolutePath();
-
-
-        SharedPreferences sharedPreferences=getSharedPreferences("save",MODE_PRIVATE);
-        String filename=sharedPreferences.getString("filename","rename123");
+        SharedPreferences sharedPreferences = getSharedPreferences("save", MODE_PRIVATE);
+        String filename = sharedPreferences.getString("filename", "rename123");
         recordFile = filename + formatter.format(now) + ".3gp";
         mediaRecorder = new MediaRecorder();
 
@@ -281,17 +263,15 @@ public class RecordingActivity extends AppCompatActivity implements View.OnClick
         mediaRecorder.setOutputFile(recordPath + "/" + recordFile);
         mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
 
-
         try {
             mediaRecorder.prepare();
         } catch (IOException e) {
             e.printStackTrace();
         }
         mediaRecorder.start();
-
-
     }
 
+//Stop Recording and Set Audio File in Path
     private void stopRecording() {
         timer.stop();
         mediaRecorder.stop();
@@ -310,23 +290,28 @@ public class RecordingActivity extends AppCompatActivity implements View.OnClick
         audioList.setAdapter(audioListAdapter);
     }
 
+//Pause Recording Function
     @RequiresApi(api = Build.VERSION_CODES.N)
     public void pauseRecording() {
-        pause_resume.setImageResource(R.drawable.play1);
+        pause_resume.setImageResource(R.drawable.icon_resume_recording);
         mediaRecorder.pause();
+        lastPause= SystemClock.elapsedRealtime();
         timer.stop();
         Toast.makeText(getApplicationContext(), "Recording Paused", Toast.LENGTH_SHORT).show();
     }
 
+ //Pause Recording Function
     @RequiresApi(api = Build.VERSION_CODES.N)
     public void resumeRecording() {
-        timer.start();
-        pause_resume.setImageResource(R.drawable.pause1);
-        mediaRecorder.resume();
 
+        timer.setBase(timer.getBase()+SystemClock.elapsedRealtime()-lastPause);
+        timer.start();
+        pause_resume.setImageResource(R.drawable.icon_pause_recording);
+        mediaRecorder.resume();
         Toast.makeText(getApplicationContext(), "Recording Resumed", Toast.LENGTH_SHORT).show();
     }
 
+//Permissions
     private boolean checkPermissions() {
         if (ActivityCompat.checkSelfPermission(RecordingActivity.this, Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED) {
             return true;
@@ -339,43 +324,39 @@ public class RecordingActivity extends AppCompatActivity implements View.OnClick
     @Override
     public void onStop() {
         super.onStop();
-        //code removed to avoid crash for null mediarecorder
-        if (isRecording && mediaRecorder!=null) {
+        //code removed to avoid crash for null mediaRecorder
+        if (isRecording && mediaRecorder != null) {
             stopRecording();
         }
-
-//        if (isPlaying) {
-//            stopAudio();
-//        }
     }
 
-
+//Player sheet
     @Override
     public void onClickListener(File file, int position) {
         // startActivity(new Intent(RecordingActivity.this,AudioListActivity.class));
-
         dialog.show();
-
-
         playBtn = dialog.findViewById(R.id.player_play_btn);
         playerFilename = dialog.findViewById(R.id.player_filename);
         playerseekBar = dialog.findViewById(R.id.player_seekBar);
         playerHeader = dialog.findViewById(R.id.player_header_name);
         playerFilename.setText(file.getName());
         Button cancel = dialog.findViewById(R.id._player_sheet_btn_cancel);
+
+//player Play Button
         dialog.findViewById(R.id.player_play_btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (isPlaying) {
                     isStopped = true;
-                    playBtn.setImageResource(R.drawable.play);
+                    playBtn.setImageResource(R.drawable.icon_player_player);
                     pauseAudio();
 
-                } else {
-                    if (isStopped)
-                    {
+                }
+ //player Pause Button
+                else {
+                    if (isStopped) {
                         resumeAudio();
-                        playBtn.setImageResource(R.drawable.pause);
+                        playBtn.setImageResource(R.drawable.icon_pause_player);
                         isStopped = false;
                         return;
                     }
@@ -383,36 +364,29 @@ public class RecordingActivity extends AppCompatActivity implements View.OnClick
                     playAudio(file);
                 }
             }
-
         });
 
-
+ //player Cancel Button
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (isPlaying) {
                     stopAudio();
                 }
-
                 dialog.dismiss();
             }
         });
-
     }
 
+  //Player sheet Stop Method
     private void stopAudio() {
-
-        playBtn.setImageResource(R.drawable.play);
-
+        playBtn.setImageResource(R.drawable.icon_player_player);
         isPlaying = false;
-
         mediaPlayer.stop();
         seekbarHandler.removeCallbacks(updateSeekbar);
     }
-
+//Player sheet Play Method
     private void playAudio(File fileToPlay) {
-
-
         mediaPlayer = new MediaPlayer();
         try {
             mediaPlayer.setDataSource(fileToPlay.getAbsolutePath());
@@ -422,9 +396,8 @@ public class RecordingActivity extends AppCompatActivity implements View.OnClick
         } catch (IOException e) {
             e.printStackTrace();
         }
-        playBtn.setImageResource(R.drawable.pause);
+        playBtn.setImageResource(R.drawable.icon_pause_player);
         playerFilename.setText(fileToPlay.getName());
-
 
         mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
@@ -434,11 +407,11 @@ public class RecordingActivity extends AppCompatActivity implements View.OnClick
             }
         });
 
+//Seek Bar
         playerseekBar.setMax(mediaPlayer.getDuration());
         seekbarHandler = new Handler();
         updateRunnable();
         seekbarHandler.postDelayed(updateSeekbar, 0);
-
         isPlaying = true;
     }//playAudio ended
 
@@ -448,55 +421,25 @@ public class RecordingActivity extends AppCompatActivity implements View.OnClick
             public void run() {
                 playerseekBar.setProgress(mediaPlayer.getCurrentPosition());
                 seekbarHandler.postDelayed(this, 500);
-
             }
         };
     }
 
-//    public void showSaveRecordingDialogBox() {
-//        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-//        LayoutInflater layoutInflaterAndroid = LayoutInflater.from(this);
-//        View view = layoutInflaterAndroid.inflate(R.layout.save_recording_dialogbox, null);
-//        builder.setView(view);
-//        builder.setCancelable(false);
-//        final AlertDialog alertDialog = builder.create();
-//        alertDialog.show();
-//        TextView time = view.findViewById(R.id.tv_time);
-//        time.setText(totalTime);
-////        EditText name = view.findViewById(R.id.tv_description);
-////        recordingName = name.getText().toString();
-//        view.findViewById(R.id.btn_save).setOnClickListener(new View.OnClickListener()
-//        {
-//            @Override
-//            public void onClick(View view) {
-//                alertDialog.dismiss();
-//                stopRecording();
-//
-//            }
-//        });
-//        view.findViewById(R.id.btn_resume).setOnClickListener(new View.OnClickListener() {
-//            @RequiresApi(api = Build.VERSION_CODES.N)
-//            @Override
-//            public void onClick(View view) {
-//                alertDialog.dismiss();
-//                resumeRecording();
-//            }
-//        });
-//        return;
-// }
-
+//Player sheet Pause Method
     public void pauseAudio() {
         mediaPlayer.pause();
         isPlaying = false;
         seekbarHandler.removeCallbacks(updateSeekbar);
     }
-
+//Player sheet Resume Method
     public void resumeAudio() {
         mediaPlayer.start();
         isPlaying = true;
         updateRunnable();
         seekbarHandler.postDelayed(updateSeekbar, 0);
     }
+
+//Back Press Dialog Box exit/cancel
     @Override
     public void onBackPressed() {
         // calling the function
@@ -504,41 +447,32 @@ public class RecordingActivity extends AppCompatActivity implements View.OnClick
     }
 
     private void customExitDialog() {
-            // creating custom dialog
-            final Dialog dialog = new Dialog(RecordingActivity.this);
+        final Dialog dialog = new Dialog(RecordingActivity.this);
+        dialog.setContentView(R.layout.exit_dialogbox);
+        // getting reference of TextView
+        TextView dialogButtonYes = (TextView) dialog.findViewById(R.id.textViewYes);
+        TextView dialogButtonNo = (TextView) dialog.findViewById(R.id.textViewNo);
 
+// Click listener for No
+        dialogButtonNo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
 
-            // setting content view to dialog
-            dialog.setContentView(R.layout.exit_dialogbox);
+// Click listener for Yes
+        dialogButtonYes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // dismiss the dialog
+                // and exit the exit
 
-            // getting reference of TextView
-            TextView dialogButtonYes = (TextView) dialog.findViewById(R.id.textViewYes);
-            TextView dialogButtonNo = (TextView) dialog.findViewById(R.id.textViewNo);
-
-            // click listener for No
-            dialogButtonNo.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //dismiss the dialog
-                    dialog.dismiss();
-
-                }
-            });
-
-            // click listener for Yes
-            dialogButtonYes.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    // dismiss the dialog
-                    // and exit the exit
-                    dialog.dismiss();
-                    finish();
-
-                }
-            });
-
-            // show the exit dialog
-            dialog.show();
-        }
+             finishAffinity();
+            }
+        });
+ // show the exit dialog
+        dialog.show();
     }
+}
 

@@ -21,21 +21,18 @@
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="ca-app-pub-3940256099942544~6300978111"/>
         <activity
-            android:name=".AudioListActivity"
+            android:name=".UI.AudioListActivity"
             android:exported="true" >
 
         </activity>
         <activity
-            android:name=".SettingActivity"
+            android:name=".UI.SettingActivity"
             android:exported="true" />
         <activity
-            android:name=".RecordingActivity"
+            android:name=".UI.RecordingActivity"
             android:exported="true" />
         <activity
-            android:name=".HomeActivity2"
-            android:exported="true" />
-        <activity
-            android:name=".MainActivity"
+            android:name=".UI.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

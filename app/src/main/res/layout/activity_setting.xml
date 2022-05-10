@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:animateLayoutChanges="true"
-    tools:context=".SettingActivity">
+    tools:context=".UI.SettingActivity">
     <include
         android:id="@+id/include"
         layout="@layout/toolbar_home"
@@ -38,7 +38,7 @@
         tools:layout_editor_absoluteY="106dp">
 
         <TextView
-            android:id="@+id/TextView03"
+            android:id="@+id/tv_pause_duringCall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -57,7 +57,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="7dp"
             android:layout_marginEnd="30dp"
-            android:src="@drawable/toggle_1"
+            android:src="@drawable/icon_btn_toggle_1"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -82,7 +82,7 @@
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/screen_On"
+        android:id="@+id/list_screenOn"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_below="@+id/ads_view"
@@ -131,7 +131,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="7dp"
             android:layout_marginEnd="30dp"
-            android:src="@drawable/toggle_1"
+            android:src="@drawable/icon_btn_toggle_1"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -151,12 +151,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/screen_On"
+        app:layout_constraintTop_toBottomOf="@+id/list_screenOn"
         app:layout_constraintVertical_bias="0.0" />
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/theme"
+        android:id="@+id/list_theme"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_below="@+id/ads_view"
@@ -168,7 +168,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/screen_On"
+        app:layout_constraintTop_toBottomOf="@+id/list_screenOn"
         app:layout_constraintVertical_bias="0.0">
 
         <TextView
@@ -213,10 +213,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/theme"
+        app:layout_constraintTop_toBottomOf="@+id/list_theme"
         app:layout_constraintVertical_bias="0.0" />
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/list_default_fn"
+        android:id="@+id/list_defaultFilename"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_below="@+id/ads_view"
@@ -228,7 +228,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/theme"
+        app:layout_constraintTop_toBottomOf="@+id/list_theme"
         app:layout_constraintVertical_bias="0.0">
 
         <TextView
@@ -273,7 +273,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/list_default_fn"
+        app:layout_constraintTop_toBottomOf="@+id/list_defaultFilename"
         app:layout_constraintVertical_bias="0.0" />
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/list_give_fb"
@@ -288,7 +288,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/list_default_fn"
+        app:layout_constraintTop_toBottomOf="@+id/list_defaultFilename"
         app:layout_constraintVertical_bias="0.0">
 
         <TextView

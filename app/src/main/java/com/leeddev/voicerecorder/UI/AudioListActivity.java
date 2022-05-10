@@ -1,4 +1,4 @@
-package com.leeddev.voicerecorder;
+package com.leeddev.voicerecorder.UI;
 
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -15,6 +15,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.leeddev.voicerecorder.R;
+import com.leeddev.voicerecorder.RecylerViewUtils.AudioListAdapter;
 
 import java.io.File;
 import java.io.IOException;
@@ -43,15 +45,13 @@ public class AudioListActivity extends AppCompatActivity implements AudioListAda
         playBtn = findViewById(R.id.player_play_btn);
         playerFilename = findViewById(R.id.player_filename);
         playerseekBar = findViewById(R.id.player_seekBar);
-
-        String path = getExternalFilesDir("/").getAbsolutePath();
-        File directory = new File(path);
-        allFiles = directory.listFiles();
-
         audioListAdapter = new AudioListAdapter(allFiles,this);
         audioList.setHasFixedSize(true);
         audioList.setLayoutManager(new LinearLayoutManager(this));
         audioList.setAdapter(audioListAdapter);
+        String path = getExternalFilesDir("/").getAbsolutePath();
+        File directory = new File(path);
+        allFiles = directory.listFiles();
 
         bottomSheetBehavior.addBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
             @Override
@@ -68,25 +68,23 @@ public class AudioListActivity extends AppCompatActivity implements AudioListAda
             }
         });
 
-
         playBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(isPlaying){
                     if(fileToPlay!=null)
                     {
-                        playBtn.setImageResource(R.drawable.pause);
+                        playBtn.setImageResource(R.drawable.icon_pause_player);
 
                         pauseAudio();
                     }
                 }
                 else{resumeAudio();
-                    playBtn.setImageResource(R.drawable.play);
+                    playBtn.setImageResource(R.drawable.icon_player_player);
 
                 }
             }
         });
-
 
         playerseekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -132,12 +130,9 @@ public class AudioListActivity extends AppCompatActivity implements AudioListAda
 
     }
 
-
-
-
     private void stopAudio() {
 
-        playBtn.setImageResource(R.drawable.play);
+        playBtn.setImageResource(R.drawable.icon_player_player);
         playerHeader.setText("stopped");
         isPlaying = false;
         mediaPlayer.stop();
@@ -145,7 +140,6 @@ public class AudioListActivity extends AppCompatActivity implements AudioListAda
     }
 
     private void playAudio(File fileToPlay) {
-
         bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
         mediaPlayer = new MediaPlayer();
         try {
@@ -156,7 +150,8 @@ public class AudioListActivity extends AppCompatActivity implements AudioListAda
         } catch (IOException e) {
             e.printStackTrace();
         }
-        playBtn.setImageResource(R.drawable.pause);
+
+        playBtn.setImageResource(R.drawable.icon_pause_player);
         playerFilename.setText(fileToPlay.getName());
         playerHeader.setText("playing");
 
@@ -172,7 +167,6 @@ public class AudioListActivity extends AppCompatActivity implements AudioListAda
         seekbarHandler = new Handler();
         updateRunnable();
         seekbarHandler.postDelayed(updateSeekbar,0);
-
         isPlaying = true;
     }//playAudio ended
 

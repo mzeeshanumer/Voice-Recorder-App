@@ -16,10 +16,10 @@
 
     <ImageView
         android:layout_gravity="end"
-        android:id="@+id/home"
+        android:id="@+id/btn_home"
         android:layout_width="21dp"
         android:layout_height="21dp"
-        android:src="@drawable/home"
+        android:src="@drawable/icon_home"
         />
 
     </androidx.appcompat.widget.Toolbar>

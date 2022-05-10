@@ -22,7 +22,7 @@
         android:id="@+id/settingsAction"
         android:layout_width="21dp"
         android:layout_height="21dp"
-        android:src="@drawable/setting"
+        android:src="@drawable/icon_setting"
         />
 
 

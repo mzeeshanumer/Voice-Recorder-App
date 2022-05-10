@@ -54,12 +54,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/player_filename"
-        app:srcCompat="@drawable/play" />
+        app:srcCompat="@drawable/icon_player_player" />
 
     <ImageButton
         android:id="@+id/btn_back_forward"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:background="@color/light_grey"
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="@+id/player_play_btn"
@@ -68,18 +68,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/player_play_btn"
         app:layout_constraintVertical_bias="1.0"
-        app:srcCompat="@drawable/back_forward" />
+        app:srcCompat="@drawable/icon_back_forward" />
 
     <ImageButton
         android:id="@+id/btn_forward"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:background="@color/light_grey"
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="@+id/player_play_btn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/player_play_btn"
-        app:srcCompat="@drawable/fast_forward" />
+        app:srcCompat="@drawable/icon_fast_forward" />
 
     <SeekBar
         android:id="@+id/player_seekBar"
@@ -88,19 +88,18 @@
         android:layout_marginStart="30dp"
         android:layout_marginTop="30dp"
         android:layout_marginEnd="32dp"
+        android:layout_marginBottom="60dp"
         android:background="@color/black"
         android:thumbTint="@color/white"
-        android:layout_marginBottom="60dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/player_play_btn"
-         />
+        app:layout_constraintTop_toBottomOf="@+id/player_play_btn" />
 
     <Button
         android:id="@+id/_player_sheet_btn_cancel"
         android:layout_width="wrap_content"
-        android:layout_height="38dp"
+        android:layout_height="48dp"
         android:layout_marginTop="30dp"
         android:layout_marginBottom="30dp"
         android:text="@string/cancel"
