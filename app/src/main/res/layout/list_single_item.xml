@@ -75,7 +75,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:src="@drawable/icon_player_player"
+        android:src="@drawable/icon_play_player"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/seekBar"
         app:layout_constraintStart_toStartOf="@+id/seekBar"

@@ -54,7 +54,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/player_filename"
-        app:srcCompat="@drawable/icon_player_player" />
+        app:srcCompat="@drawable/icon_play_player" />
 
     <ImageButton
         android:id="@+id/btn_back_forward"

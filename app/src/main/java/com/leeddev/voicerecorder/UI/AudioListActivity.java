@@ -80,7 +80,7 @@ public class AudioListActivity extends AppCompatActivity implements AudioListAda
                     }
                 }
                 else{resumeAudio();
-                    playBtn.setImageResource(R.drawable.icon_player_player);
+                    playBtn.setImageResource(R.drawable.icon_play_player);
 
                 }
             }
@@ -132,7 +132,7 @@ public class AudioListActivity extends AppCompatActivity implements AudioListAda
 
     private void stopAudio() {
 
-        playBtn.setImageResource(R.drawable.icon_player_player);
+        playBtn.setImageResource(R.drawable.icon_play_player);
         playerHeader.setText("stopped");
         isPlaying = false;
         mediaPlayer.stop();

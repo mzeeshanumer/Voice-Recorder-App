@@ -340,6 +340,7 @@ public class RecordingActivity extends AppCompatActivity implements View.OnClick
         playerseekBar = dialog.findViewById(R.id.player_seekBar);
         playerHeader = dialog.findViewById(R.id.player_header_name);
         playerFilename.setText(file.getName());
+        dialog.setCanceledOnTouchOutside(false);
         Button cancel = dialog.findViewById(R.id._player_sheet_btn_cancel);
 
 //player Play Button
@@ -348,7 +349,7 @@ public class RecordingActivity extends AppCompatActivity implements View.OnClick
             public void onClick(View view) {
                 if (isPlaying) {
                     isStopped = true;
-                    playBtn.setImageResource(R.drawable.icon_player_player);
+                    playBtn.setImageResource(R.drawable.icon_play_player);
                     pauseAudio();
 
                 }
@@ -380,7 +381,7 @@ public class RecordingActivity extends AppCompatActivity implements View.OnClick
 
   //Player sheet Stop Method
     private void stopAudio() {
-        playBtn.setImageResource(R.drawable.icon_player_player);
+        playBtn.setImageResource(R.drawable.icon_play_player);
         isPlaying = false;
         mediaPlayer.stop();
         seekbarHandler.removeCallbacks(updateSeekbar);
@@ -449,6 +450,7 @@ public class RecordingActivity extends AppCompatActivity implements View.OnClick
     private void customExitDialog() {
         final Dialog dialog = new Dialog(RecordingActivity.this);
         dialog.setContentView(R.layout.exit_dialogbox);
+        dialog.setCanceledOnTouchOutside(false);
         // getting reference of TextView
         TextView dialogButtonYes = (TextView) dialog.findViewById(R.id.textViewYes);
         TextView dialogButtonNo = (TextView) dialog.findViewById(R.id.textViewNo);
@@ -457,6 +459,7 @@ public class RecordingActivity extends AppCompatActivity implements View.OnClick
         dialogButtonNo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 dialog.dismiss();
             }
         });
