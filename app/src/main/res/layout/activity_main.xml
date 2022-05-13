@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".UI.MainActivity"
-    android:background="@color/dark_grey">
+    android:background="@color/dark_grey"
+    tools:context=".UI.MainActivity">
 
     <ImageView
         android:id="@+id/imageView"
@@ -19,21 +19,24 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:id="@+id/tv_vrText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
         android:fontFamily="@font/nexalight"
         android:text="@string/voice_recorder"
         android:textColor="@color/white"
         android:textSize="20sp"
-        android:id="@+id/tv_vrText"
-        android:layout_marginTop="80dp"
         app:layout_constraintEnd_toEndOf="@+id/imageView"
         app:layout_constraintStart_toStartOf="@+id/imageView"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
     <Button
         android:id="@+id/getStartedAction"
-        android:layout_width="wrap_content"
+        android:layout_width="162dp"
         android:layout_height="38dp"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/button_stroke"
         android:fontFamily="@font/nexalight"
         android:text="Get Started"
         android:textAllCaps="true"
@@ -41,11 +44,7 @@
         android:textSize="14sp"
         android:textStyle="bold"
         android:visibility="gone"
-        android:background="@drawable/button_stroke"
-        android:layout_marginTop="50dp"
         app:layout_constraintEnd_toEndOf="@+id/tv_vrText"
         app:layout_constraintStart_toStartOf="@+id/tv_vrText"
-        app:layout_constraintTop_toBottomOf="@+id/tv_vrText"
-        />
-
+        app:layout_constraintTop_toBottomOf="@+id/tv_vrText" />
 </androidx.constraintlayout.widget.ConstraintLayout>

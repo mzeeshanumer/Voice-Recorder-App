@@ -3,14 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/audio_list_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#ffffff" />
-
-    <include layout="@layout/player_sheet"></include>
-
-
+    <include layout="@layout/player_sheet">
+    </include>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -44,11 +44,5 @@ else {
     return days + " days ago";
         }
 //conditions ended
-
-
-
-
-
     }
-
 }

@@ -12,24 +12,20 @@ import android.view.View;
 import android.view.Window;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SwitchCompat;
 import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
-
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.leeddev.voicerecorder.R;
-
 public class SettingActivity extends AppCompatActivity {
-
-    SwitchCompat switchCompat2,switchCompat1;
+    Switch switchCompat2,switchCompat1;
     ConstraintLayout btn_rate_us;
     Toolbar toolbar;
     ImageView btn_home;
@@ -38,7 +34,6 @@ public class SettingActivity extends AppCompatActivity {
     SharedPreferences.Editor editor;
     TextView tv_file_name;
     ConstraintLayout give_feedback,default_name;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,7 +75,6 @@ public class SettingActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(),
                             "Coming Soon",
                             Toast.LENGTH_SHORT).show();
-
                 }
                 else
                 {
@@ -157,7 +151,6 @@ public class SettingActivity extends AppCompatActivity {
                 }
             }
         });
-
     }
 //DEFAULT FILE NAME DIALOG BOX
     public void showDialog(Activity activity){
@@ -194,9 +187,7 @@ public class SettingActivity extends AppCompatActivity {
             public void onInitializationComplete(InitializationStatus initializationStatus) {
             }
         });
-
         AdRequest adRequest = new AdRequest.Builder().build();
         ad_view.loadAd(adRequest);
-
     }
 }

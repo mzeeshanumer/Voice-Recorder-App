@@ -3,15 +3,28 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Nexgen/AndroidStudioProjects/Voice-Recorder-App/app/src/main/res/drawable/_grey.xml" value="0.1405" />
+        <entry key="..\:/Users/Nexgen/AndroidStudioProjects/Voice-Recorder-App/app/src/main/res/drawable/btn_get_started.xml" value="0.1405" />
         <entry key="..\:/Users/Nexgen/AndroidStudioProjects/Voice-Recorder-App/app/src/main/res/drawable/button_stroke.xml" value="0.1235" />
+        <entry key="..\:/Users/Nexgen/AndroidStudioProjects/Voice-Recorder-App/app/src/main/res/drawable/button_stroke_grey.xml" value="0.1405" />
         <entry key="..\:/Users/Nexgen/AndroidStudioProjects/Voice-Recorder-App/app/src/main/res/drawable/card_round.xml" value="0.1235" />
         <entry key="..\:/Users/Nexgen/AndroidStudioProjects/Voice-Recorder-App/app/src/main/res/drawable/circle.xml" value="0.1235" />
         <entry key="..\:/Users/Nexgen/AndroidStudioProjects/Voice-Recorder-App/app/src/main/res/drawable/dialog_background.xml" value="0.1235" />
         <entry key="..\:/Users/Nexgen/AndroidStudioProjects/Voice-Recorder-App/app/src/main/res/drawable/ic_baseline_queue_music_24.xml" value="0.1235" />
         <entry key="..\:/Users/Nexgen/AndroidStudioProjects/Voice-Recorder-App/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1235" />
+        <entry key="..\:/Users/Nexgen/AndroidStudioProjects/Voice-Recorder-App/app/src/main/res/drawable/icon_audio_svg.xml" value="0.1405" />
+        <entry key="..\:/Users/Nexgen/AndroidStudioProjects/Voice-Recorder-App/app/src/main/res/drawable/icon_back_forward.xml" value="0.1405" />
+        <entry key="..\:/Users/Nexgen/AndroidStudioProjects/Voice-Recorder-App/app/src/main/res/drawable/icon_btn_menu.xml" value="0.1235" />
+        <entry key="..\:/Users/Nexgen/AndroidStudioProjects/Voice-Recorder-App/app/src/main/res/drawable/icon_btn_toggle_1.xml" value="0.1405" />
+        <entry key="..\:/Users/Nexgen/AndroidStudioProjects/Voice-Recorder-App/app/src/main/res/drawable/icon_btn_toggle_2.xml" value="0.1405" />
+        <entry key="..\:/Users/Nexgen/AndroidStudioProjects/Voice-Recorder-App/app/src/main/res/drawable/icon_fast_forward.xml" value="0.1405" />
         <entry key="..\:/Users/Nexgen/AndroidStudioProjects/Voice-Recorder-App/app/src/main/res/drawable/icon_pause_player.xml" value="0.2365" />
+        <entry key="..\:/Users/Nexgen/AndroidStudioProjects/Voice-Recorder-App/app/src/main/res/drawable/icon_pause_recording.xml" value="0.1405" />
         <entry key="..\:/Users/Nexgen/AndroidStudioProjects/Voice-Recorder-App/app/src/main/res/drawable/icon_play_player.xml" value="0.2365" />
         <entry key="..\:/Users/Nexgen/AndroidStudioProjects/Voice-Recorder-App/app/src/main/res/drawable/icon_player_player.xml" value="0.2365" />
+        <entry key="..\:/Users/Nexgen/AndroidStudioProjects/Voice-Recorder-App/app/src/main/res/drawable/icon_redcircle_background.xml" value="0.1405" />
+        <entry key="..\:/Users/Nexgen/AndroidStudioProjects/Voice-Recorder-App/app/src/main/res/drawable/icon_resume_recording.xml" value="0.1405" />
+        <entry key="..\:/Users/Nexgen/AndroidStudioProjects/Voice-Recorder-App/app/src/main/res/drawable/image_round.xml" value="0.1405" />
         <entry key="..\:/Users/Nexgen/AndroidStudioProjects/Voice-Recorder-App/app/src/main/res/drawable/mic2.xml" value="0.1235" />
         <entry key="..\:/Users/Nexgen/AndroidStudioProjects/Voice-Recorder-App/app/src/main/res/drawable/mic_1.xml" value="0.1235" />
         <entry key="..\:/Users/Nexgen/AndroidStudioProjects/Voice-Recorder-App/app/src/main/res/drawable/pause.xml" value="0.1235" />
@@ -21,15 +34,17 @@
         <entry key="..\:/Users/Nexgen/AndroidStudioProjects/Voice-Recorder-App/app/src/main/res/layout/activity_home2.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Nexgen/AndroidStudioProjects/Voice-Recorder-App/app/src/main/res/layout/activity_main.xml" value="0.20260416666666667" />
         <entry key="..\:/Users/Nexgen/AndroidStudioProjects/Voice-Recorder-App/app/src/main/res/layout/activity_recording.xml" value="0.264" />
-        <entry key="..\:/Users/Nexgen/AndroidStudioProjects/Voice-Recorder-App/app/src/main/res/layout/activity_setting.xml" value="0.176" />
+        <entry key="..\:/Users/Nexgen/AndroidStudioProjects/Voice-Recorder-App/app/src/main/res/layout/activity_setting.xml" value="0.264" />
         <entry key="..\:/Users/Nexgen/AndroidStudioProjects/Voice-Recorder-App/app/src/main/res/layout/default_name_dialogbox.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Nexgen/AndroidStudioProjects/Voice-Recorder-App/app/src/main/res/layout/exit_dialogbox.xml" value="0.20104166666666667" />
         <entry key="..\:/Users/Nexgen/AndroidStudioProjects/Voice-Recorder-App/app/src/main/res/layout/list_single_item.xml" value="0.264" />
+        <entry key="..\:/Users/Nexgen/AndroidStudioProjects/Voice-Recorder-App/app/src/main/res/layout/menu_dialogbox.xml" value="0.21302083333333333" />
         <entry key="..\:/Users/Nexgen/AndroidStudioProjects/Voice-Recorder-App/app/src/main/res/layout/player_sheet.xml" value="0.23854166666666668" />
         <entry key="..\:/Users/Nexgen/AndroidStudioProjects/Voice-Recorder-App/app/src/main/res/layout/save_recording_dialogbox.xml" value="0.23854166666666668" />
         <entry key="..\:/Users/Nexgen/AndroidStudioProjects/Voice-Recorder-App/app/src/main/res/layout/set_name_dialogbox.xml" value="0.20104166666666667" />
         <entry key="..\:/Users/Nexgen/AndroidStudioProjects/Voice-Recorder-App/app/src/main/res/layout/toolbar_home.xml" value="0.18611111111111112" />
         <entry key="..\:/Users/Nexgen/AndroidStudioProjects/Voice-Recorder-App/app/src/main/res/layout/toolbar_setting.xml" value="0.23854166666666668" />
+        <entry key="..\:/Users/Nexgen/AndroidStudioProjects/Voice-Recorder-App/app/src/main/res/xml/file_paths.xml" value="0.115625" />
       </map>
     </option>
   </component>

@@ -7,17 +7,14 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.leeddev.voicerecorder.R;
 import com.leeddev.voicerecorder.RecylerViewUtils.AudioListAdapter;
-
 import java.io.File;
 import java.io.IOException;
 
@@ -35,6 +32,7 @@ public class AudioListActivity extends AppCompatActivity implements AudioListAda
     private SeekBar playerseekBar;
     private Handler seekbarHandler;
     private Runnable updateSeekbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,10 +43,11 @@ public class AudioListActivity extends AppCompatActivity implements AudioListAda
         playBtn = findViewById(R.id.player_play_btn);
         playerFilename = findViewById(R.id.player_filename);
         playerseekBar = findViewById(R.id.player_seekBar);
-        audioListAdapter = new AudioListAdapter(allFiles,this);
+        audioListAdapter = new AudioListAdapter(this,allFiles,this);
         audioList.setHasFixedSize(true);
         audioList.setLayoutManager(new LinearLayoutManager(this));
         audioList.setAdapter(audioListAdapter);
+
         String path = getExternalFilesDir("/").getAbsolutePath();
         File directory = new File(path);
         allFiles = directory.listFiles();
@@ -98,9 +97,7 @@ public class AudioListActivity extends AppCompatActivity implements AudioListAda
                 {
                     pauseAudio();
                 }
-
             }
-
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
                 if(fileToPlay!=null)
@@ -108,12 +105,10 @@ public class AudioListActivity extends AppCompatActivity implements AudioListAda
                     mediaPlayer.seekTo(progress);
                     resumeAudio();
                 }
-
             }
         });
 
     }
-
 
     @Override
     public void onClickListener(File file, int position) {
@@ -123,11 +118,8 @@ public class AudioListActivity extends AppCompatActivity implements AudioListAda
             playAudio(fileToPlay);
         }
         else {
-
             playAudio(fileToPlay);
-
         }
-
     }
 
     private void stopAudio() {
@@ -193,9 +185,7 @@ public class AudioListActivity extends AppCompatActivity implements AudioListAda
         isPlaying = true;
         updateRunnable();
         seekbarHandler.postDelayed(updateSeekbar,0);
-
     }
-
     @Override
     public void onStop() {
         super.onStop();
