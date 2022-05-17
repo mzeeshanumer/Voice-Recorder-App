@@ -1,4 +1,4 @@
-package com.leeddev.voicerecorder.RecylerViewUtils;
+package com.leeddev.recorder.RecylerViewUtils;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -21,10 +21,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.FileProvider;
 import androidx.recyclerview.widget.RecyclerView;
-import com.leeddev.voicerecorder.AppUtils.utils;
-import com.leeddev.voicerecorder.R;
-import com.leeddev.voicerecorder.AppUtils.TimeAgo;
-import com.leeddev.voicerecorder.UI.DetailsActivity;
+import com.leeddev.recorder.AppUtils.utils;
+import com.leeddev.recorder.R;
+import com.leeddev.recorder.AppUtils.TimeAgo;
+import com.leeddev.recorder.UI.DetailsActivity;
 
 import java.io.File;
 public class AudioListAdapter extends RecyclerView.Adapter<AudioListAdapter.AudioViewHolder> {
@@ -77,7 +77,7 @@ public class AudioListAdapter extends RecyclerView.Adapter<AudioListAdapter.Audi
                         Toast.makeText(context.getApplicationContext(), "Clicked Successfully", Toast.LENGTH_SHORT).show();
                         Uri imageUri = FileProvider.getUriForFile(
                                 context,
-                                "com.leeddev.voicerecorder.provider", //(use your app signature + ".provider" )
+                                "com.leeddev.recorder.provider", //(use your app signature + ".provider" )
                                 allFiles[position]);
                         String sharePath = allFiles[position].getPath();
                         Uri uri = Uri.parse("file://" +sharePath);
@@ -85,10 +85,10 @@ public class AudioListAdapter extends RecyclerView.Adapter<AudioListAdapter.Audi
                         if(allFiles[position].exists()) {
                             share.setType("audio/*");
                             share.putExtra(Intent.EXTRA_STREAM, imageUri);
-                            context.startActivity(Intent.createChooser(share, "Share File"));
+                            context.startActivity(Intent.createChooser(share, "Share Sound File"));
                         }
                         dialog.dismiss();
-                        context.startActivity(Intent.createChooser(share, "Share Sound File"));
+//                        context.startActivity(Intent.createChooser(share, "Share Sound File"));
                     }
                 });
 
@@ -99,13 +99,6 @@ public class AudioListAdapter extends RecyclerView.Adapter<AudioListAdapter.Audi
                     public void onClick(View view) {
                         btn_delete.startAnimation(fadeInAnimation);
                         Toast.makeText(context.getApplicationContext(), "Delete Successfully", Toast.LENGTH_SHORT).show();
-//                        Uri imageUri = FileProvider.getUriForFile(
-//                                context,
-//                                "com.leeddev.voicerecorder.provider", //(use your app signature + ".provider" )
-//                                allFiles[position]);
-//                        String sharePath = allFiles[position].getPath();
-//                        Uri uri = Uri.parse("file://" +sharePath);
-
                         if(allFiles[position].exists()) {
                             allFiles[position].delete();
 
@@ -117,8 +110,8 @@ public class AudioListAdapter extends RecyclerView.Adapter<AudioListAdapter.Audi
                     @Override
                     public void onClick(View view) {
                         Toast.makeText(context.getApplicationContext(),"Coming Soon", Toast.LENGTH_SHORT).show();
-                    Intent intent= new Intent(context.getApplicationContext(), DetailsActivity.class);
-                    context.startActivity(intent);
+//                    Intent intent= new Intent(context.getApplicationContext(), DetailsActivity.class);
+//                    context.startActivity(intent);
                     dialog.dismiss();
 
                     }

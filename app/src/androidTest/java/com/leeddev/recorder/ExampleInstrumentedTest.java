@@ -1,4 +1,4 @@
-package com.leeddev.voicerecorder;
+package com.leeddev.recorder;
 
 import android.content.Context;
 

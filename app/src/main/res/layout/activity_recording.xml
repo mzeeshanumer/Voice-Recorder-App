@@ -21,7 +21,7 @@
         android:layout_height="50dp"
         android:background="@color/light_grey"
         ads:adSize="BANNER"
-        ads:adUnitId="ca-app-pub-3940256099942544/6300978111"
+        ads:adUnitId="ca-app-pub-9104652884839341/4922082590"
         app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
     <androidx.recyclerview.widget.RecyclerView

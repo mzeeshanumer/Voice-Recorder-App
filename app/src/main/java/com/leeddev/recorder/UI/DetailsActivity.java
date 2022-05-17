@@ -1,10 +1,10 @@
-package com.leeddev.voicerecorder.UI;
+package com.leeddev.recorder.UI;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-import com.leeddev.voicerecorder.R;
+import com.leeddev.recorder.R;
 
 public class DetailsActivity extends AppCompatActivity {
 

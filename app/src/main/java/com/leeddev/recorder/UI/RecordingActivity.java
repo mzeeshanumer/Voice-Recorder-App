@@ -1,4 +1,4 @@
-package com.leeddev.voicerecorder.UI;
+package com.leeddev.recorder.UI;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -42,8 +42,8 @@ import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.android.gms.ads.interstitial.InterstitialAd;
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
-import com.leeddev.voicerecorder.R;
-import com.leeddev.voicerecorder.RecylerViewUtils.AudioListAdapter;
+import com.leeddev.recorder.R;
+import com.leeddev.recorder.RecylerViewUtils.AudioListAdapter;
 import java.io.File;
 import java.io.IOException;
 import java.util.Date;
@@ -127,7 +127,8 @@ public class RecordingActivity extends AppCompatActivity implements View.OnClick
                     resumeRecording();
                     pause_resume.setImageResource(R.drawable.icon_pause_recording);
                     isresumed = false;
-                } else {
+                }
+                else {
                     isresumed = true;
                     pauseRecording();
                     isRecording = false;
@@ -191,7 +192,7 @@ public class RecordingActivity extends AppCompatActivity implements View.OnClick
     private void showAds() {
         AdRequest adRequest = new AdRequest.Builder().build();
 
-        InterstitialAd.load(this, "ca-app-pub-3940256099942544/1033173712", adRequest,
+        InterstitialAd.load(this, "ca-app-pub-9104652884839341/4730510907", adRequest,
                 new InterstitialAdLoadCallback() {
                     @Override
                     public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
@@ -229,8 +230,11 @@ public class RecordingActivity extends AppCompatActivity implements View.OnClick
 //Start Recording and Get Path, Time, Date
     @SuppressLint("NewApi")
     private void startRecording() {
+
         timer.setBase(SystemClock.elapsedRealtime());
         timer.start();
+
+//        pause_resume.setImageResource(R.drawable.icon_pause_recording);
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy_MM_dd_hh_mm_ss", Locale.CANADA);
         Date now = new Date();
         String recordPath = RecordingActivity.this.getExternalFilesDir("/").getAbsolutePath();
@@ -255,6 +259,7 @@ public class RecordingActivity extends AppCompatActivity implements View.OnClick
         mediaRecorder.stop();
         mediaRecorder.release();
         mediaRecorder = null;
+
         Toast.makeText(getApplicationContext(), "Recording Saved", Toast.LENGTH_SHORT).show();
         recordingInProgress.setVisibility(View.GONE);
         startRecording.setVisibility(View.VISIBLE);
@@ -273,11 +278,13 @@ public class RecordingActivity extends AppCompatActivity implements View.OnClick
         mediaRecorder.pause();
         lastPause= SystemClock.elapsedRealtime();
         timer.stop();
+
         Toast.makeText(getApplicationContext(), "Recording Paused", Toast.LENGTH_SHORT).show();
     }
  //Pause Recording Function
     @RequiresApi(api = Build.VERSION_CODES.N)
     public void resumeRecording() {
+
         timer.setBase(timer.getBase()+SystemClock.elapsedRealtime()-lastPause);
         timer.start();
         pause_resume.setImageResource(R.drawable.icon_pause_recording);

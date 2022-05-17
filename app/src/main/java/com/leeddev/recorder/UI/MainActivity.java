@@ -1,5 +1,5 @@
 //SPLASH SCREEN CODE
-package com.leeddev.voicerecorder.UI;
+package com.leeddev.recorder.UI;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,7 +17,7 @@ import com.google.android.gms.ads.FullScreenContentCallback;
 import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.ads.interstitial.InterstitialAd;
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
-import com.leeddev.voicerecorder.R;
+import com.leeddev.recorder.R;
 
 public class MainActivity extends AppCompatActivity {
     Button start;
@@ -45,10 +45,10 @@ public class MainActivity extends AppCompatActivity {
                                 @Override
                                 public void onAdDismissedFullScreenContent() {
                                     // Called when fullscreen content is dismissed.
-                                    Log.d("TAG", "The ad was dismissed.");
+                                   Log.d("TAG", "The ad was dismissed.");
                                     startActivity(new Intent(MainActivity.this, RecordingActivity.class));
                                     mInterstitialAd= null;
-                                    showAds();
+
                                 }
 
                                 @Override
@@ -76,13 +76,14 @@ public class MainActivity extends AppCompatActivity {
 //BUTTON CLICK Interstitial Ad
     private void showAds() {
         AdRequest adRequest = new AdRequest.Builder().build();
-        InterstitialAd.load(this,"ca-app-pub-3940256099942544/1033173712", adRequest,
+        InterstitialAd.load(this,"ca-app-pub-9104652884839341/4730510907", adRequest,
                 new InterstitialAdLoadCallback() {
                     @Override
                     public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
                         // The mInterstitialAd reference will be null until
                         // an ad is loaded.
                         mInterstitialAd = interstitialAd;
+//
                         Log.i("TAG", "onAdLoaded");
                     }
 
@@ -92,6 +93,7 @@ public class MainActivity extends AppCompatActivity {
                         Log.i("TAG", loadAdError.getMessage());
                         mInterstitialAd = null;
                     }
+
                 });
     }
 }

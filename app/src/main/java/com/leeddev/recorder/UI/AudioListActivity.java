@@ -1,4 +1,4 @@
-package com.leeddev.voicerecorder.UI;
+package com.leeddev.recorder.UI;
 
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -13,8 +13,8 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
-import com.leeddev.voicerecorder.R;
-import com.leeddev.voicerecorder.RecylerViewUtils.AudioListAdapter;
+import com.leeddev.recorder.R;
+import com.leeddev.recorder.RecylerViewUtils.AudioListAdapter;
 import java.io.File;
 import java.io.IOException;
 

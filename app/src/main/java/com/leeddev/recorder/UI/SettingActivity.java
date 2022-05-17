@@ -1,4 +1,4 @@
-package com.leeddev.voicerecorder.UI;
+package com.leeddev.recorder.UI;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -23,7 +23,7 @@ import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
-import com.leeddev.voicerecorder.R;
+import com.leeddev.recorder.R;
 public class SettingActivity extends AppCompatActivity {
     Switch switchCompat2,switchCompat1;
     ConstraintLayout btn_rate_us;
@@ -66,9 +66,11 @@ public class SettingActivity extends AppCompatActivity {
         switchCompat1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 if (switchCompat1.isChecked())
                 {
                     // When switch checked
+//                    keepScreenOn(true);
                     SharedPreferences.Editor editor=getSharedPreferences("save",MODE_PRIVATE).edit();
                     editor.putBoolean("value",false);
                     editor.apply();
@@ -160,6 +162,10 @@ public class SettingActivity extends AppCompatActivity {
             }
         });
     }
+
+//    public void keepScreenOn(boolean keep) {
+//        switchCompat1.setKeepScreenOn(keep);
+//    }
 //DEFAULT FILE NAME DIALOG BOX
     public void showDialog(Activity activity){
         final Dialog dialog = new Dialog(activity);
@@ -195,6 +201,7 @@ public class SettingActivity extends AppCompatActivity {
             public void onInitializationComplete(InitializationStatus initializationStatus) {
             }
         });
+        ad_view = findViewById(R.id.ads_view);
         AdRequest adRequest = new AdRequest.Builder().build();
         ad_view.loadAd(adRequest);
     }
