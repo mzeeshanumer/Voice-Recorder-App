@@ -183,10 +183,10 @@ public class RecordingActivity extends AppCompatActivity implements View.OnClick
         AdRequest adRequest = new AdRequest.Builder().build();
         ad_view.loadAd(adRequest);
     }
-    public void removeItem(int position) {
-        removeItem(position);
-        audioListAdapter.notifyItemRemoved(position);
-    }
+//    public void removeItem(int position) {
+//        removeItem(position);
+//        audioListAdapter.notifyItemRemoved(position);
+//    }
 
     private void showAds() {
         AdRequest adRequest = new AdRequest.Builder().build();

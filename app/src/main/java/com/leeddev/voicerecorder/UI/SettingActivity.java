@@ -33,12 +33,13 @@ public class SettingActivity extends AppCompatActivity {
     SharedPreferences sharedpreferences;
     SharedPreferences.Editor editor;
     TextView tv_file_name;
-    ConstraintLayout give_feedback,default_name;
+    ConstraintLayout give_feedback,default_name,privacy_policy;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
         btn_rate_us =findViewById(R.id.list_rate_us);
+        privacy_policy= findViewById(R.id.list_privacy_policy);
         toolbar = findViewById(R.id.toolbar);
         btn_home = findViewById(R.id.btn_home);
         ad_view= findViewById(R.id.ads_view);
@@ -149,6 +150,13 @@ public class SettingActivity extends AppCompatActivity {
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
                 }
+            }
+        });
+        privacy_policy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent= new Intent(SettingActivity.this, PrivacyPolicyActivity.class);
+                startActivity(intent);
             }
         });
     }

@@ -24,6 +24,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.leeddev.voicerecorder.AppUtils.utils;
 import com.leeddev.voicerecorder.R;
 import com.leeddev.voicerecorder.AppUtils.TimeAgo;
+import com.leeddev.voicerecorder.UI.DetailsActivity;
+
 import java.io.File;
 public class AudioListAdapter extends RecyclerView.Adapter<AudioListAdapter.AudioViewHolder> {
     private ShareActionProvider mShareActionProvider;
@@ -31,7 +33,7 @@ public class AudioListAdapter extends RecyclerView.Adapter<AudioListAdapter.Audi
     private TimeAgo timeAgo;
     LinearLayout btn_share;
     LinearLayout btn_delete;
-    LinearLayout btn_rename;
+    LinearLayout btn_details;
     Animation fadeInAnimation;
     Context context;
     private onItemListClickbabu onItemListClick;
@@ -63,7 +65,7 @@ public class AudioListAdapter extends RecyclerView.Adapter<AudioListAdapter.Audi
                 fadeInAnimation = AnimationUtils.loadAnimation(context.getApplicationContext(), R.anim.fade_in);
                 btn_share=  (LinearLayout) dialogView.findViewById(R.id.layout_share);
                 btn_delete =  (LinearLayout)dialogView.findViewById(R.id.layout_delet);
-                btn_rename = (LinearLayout)dialogView.findViewById(R.id.layout_rename);
+                btn_details = (LinearLayout)dialogView.findViewById(R.id.layout_details);
                 dialog.setView(dialogView);
                 dialog.setCancelable(true);
                 dialog.show();
@@ -111,41 +113,13 @@ public class AudioListAdapter extends RecyclerView.Adapter<AudioListAdapter.Audi
                         dialog.dismiss();
                     }
                 });
-                btn_rename.setOnClickListener(new View.OnClickListener() {
+                btn_details.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         Toast.makeText(context.getApplicationContext(),"Coming Soon", Toast.LENGTH_SHORT).show();
-//                        AlertDialog dialog = new AlertDialog.Builder(view.getRootView().getContext()).create();
-//                        View dialogView = LayoutInflater.from(view.getRootView().getContext()).inflate(R.layout.default_name_dialogbox, null);
-//                        fadeInAnimation = AnimationUtils.loadAnimation(context.getApplicationContext(), R.anim.fade_in);
-//                        dialog.setView(dialogView);
-//                        dialog.setCancelable(true);
-//                        dialog.show();
-//
-//                        TextView tv_file_name = null;
-//                        final EditText enter_name = dialog.findViewById(R.id.enter_name);
-////DEFAULT FILE NAME SAVE BUTTON
-//                        TextView dialogButtonSave = (TextView) dialog.findViewById(R.id.tv_save);
-//                        dialogButtonSave.setOnClickListener(new View.OnClickListener() {
-//                            @Override
-//                            public void onClick(View v) {
-//                                String edit_name =enter_name.getText().toString();
-//                                if(allFiles[position].exists()){
-//                                    allFiles[position].renameTo();
-//                                }
-//                                tv_file_name.setText(edit_name);
-//                                Toast.makeText(context.getApplicationContext(),"File Name Changed",Toast.LENGTH_SHORT).show();
-//                                dialog.dismiss();
-//                            }
-//                        });
-////DEFAULT FILE NAME CANCEL BUTTON
-//                        TextView dialogButtonCancel = (TextView) dialog.findViewById(R.id.tv_cancel);
-//                        dialogButtonCancel.setOnClickListener(new View.OnClickListener() {
-//                            @Override
-//                            public void onClick(View v) {
-//                                dialog.dismiss();
-//                            }
-//                        });
+                    Intent intent= new Intent(context.getApplicationContext(), DetailsActivity.class);
+                    context.startActivity(intent);
+                    dialog.dismiss();
 
                     }
                 });

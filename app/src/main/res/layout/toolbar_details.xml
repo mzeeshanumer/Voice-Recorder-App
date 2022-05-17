@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/light_grey"
+    android:elevation="8dp"
+    app:contentInsetRight="12dp"
+    app:contentInsetStart="40dp"
+    app:popupTheme="@style/TransparentCompat"
+    app:title="Details"
+    app:titleTextAppearance="@style/TextAppearance.Material3.TitleLarge"
+    app:titleTextColor="@color/white">
+
+    <ImageView
+        android:id="@+id/btn_home"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_gravity="end"
+        android:src="@drawable/icon_details" />
+
+</androidx.appcompat.widget.Toolbar>

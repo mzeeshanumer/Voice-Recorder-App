@@ -65,13 +65,13 @@
         />
 
             <LinearLayout
-                android:id="@+id/layout_rename"
+                android:id="@+id/layout_details"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
             <!-- Yes Text View -->
             <TextView
-                android:id="@+id/tv_rename"
+                android:id="@+id/tv_details"
                 android:layout_width="match_parent"
                 android:layout_height="38dp"
                 android:layout_gravity="center"
@@ -81,7 +81,7 @@
                 android:elevation="8dp"
                 android:fontFamily="@font/nexalight"
                 android:gravity="center"
-                android:text="Rename"
+                android:text="Details"
                 android:textColor="@color/black" />
 
 

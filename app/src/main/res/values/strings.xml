@@ -20,5 +20,9 @@
     <string name="cancel">Cancel</string>
     <string name="default_file_name">Default File Name</string>
     <string name="pause_play">Pause/Play</string>
-
+    <!-- TODO - add your ad unit Ids -->
+    <!-- AdMob ad unit IDs -->
+    <string name="admob_app_id">ca-app-pub-XXXXXXXX~XXXXXXXXXXX</string>
+    <string name="banner_home_footer">ca-app-pub-XXXXXXXX~XXXXXXXXXXX</string>
+    <string name="interstitial_full_screen">ca-app-pub-XXXXXXXX~XXXXXXXXXXX</string>
 </resources>
