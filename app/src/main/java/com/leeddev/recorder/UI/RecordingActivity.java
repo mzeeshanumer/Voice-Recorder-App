@@ -75,6 +75,7 @@ public class RecordingActivity extends AppCompatActivity implements View.OnClick
     ImageButton save;
     Toolbar toolbar;
     Dialog dialog;
+    long timeWhenStopped = 0;
     ImageButton pause_resume;
     AdView ad_view;
     SharedPreferences sharedpreferences;
@@ -230,11 +231,12 @@ public class RecordingActivity extends AppCompatActivity implements View.OnClick
 //Start Recording and Get Path, Time, Date
     @SuppressLint("NewApi")
     private void startRecording() {
-
         timer.setBase(SystemClock.elapsedRealtime());
-        timer.start();
 
-//        pause_resume.setImageResource(R.drawable.icon_pause_recording);
+        timeWhenStopped = 0;
+//        timer.setBase(SystemClock.elapsedRealtime());
+        timer.start();
+        pause_resume.setImageResource(R.drawable.icon_pause_recording);
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy_MM_dd_hh_mm_ss", Locale.CANADA);
         Date now = new Date();
         String recordPath = RecordingActivity.this.getExternalFilesDir("/").getAbsolutePath();
@@ -255,11 +257,16 @@ public class RecordingActivity extends AppCompatActivity implements View.OnClick
         }
 //Stop Recording and Set Audio File in Path
     private void stopRecording() {
+
+
+        timeWhenStopped = timer.getBase() - SystemClock.elapsedRealtime();
         timer.stop();
+        isRecording = false;
+        isresumed = false;
+        timeWhenStopped = 0;
         mediaRecorder.stop();
         mediaRecorder.release();
         mediaRecorder = null;
-
         Toast.makeText(getApplicationContext(), "Recording Saved", Toast.LENGTH_SHORT).show();
         recordingInProgress.setVisibility(View.GONE);
         startRecording.setVisibility(View.VISIBLE);
@@ -276,17 +283,21 @@ public class RecordingActivity extends AppCompatActivity implements View.OnClick
     public void pauseRecording() {
         pause_resume.setImageResource(R.drawable.icon_resume_recording);
         mediaRecorder.pause();
-        lastPause= SystemClock.elapsedRealtime();
+        timeWhenStopped = timer.getBase() - SystemClock.elapsedRealtime();
         timer.stop();
-
+//        lastPause= SystemClock.elapsedRealtime();
+//        timer.stop();
+//        timer.getBase();
         Toast.makeText(getApplicationContext(), "Recording Paused", Toast.LENGTH_SHORT).show();
     }
  //Pause Recording Function
     @RequiresApi(api = Build.VERSION_CODES.N)
     public void resumeRecording() {
-
-        timer.setBase(timer.getBase()+SystemClock.elapsedRealtime()-lastPause);
+        timer.setBase(SystemClock.elapsedRealtime() + timeWhenStopped);
         timer.start();
+//        timer.setBase(timer.getBase()+(SystemClock.elapsedRealtime()-lastPause));
+//      timer.setBase(SystemClock.elapsedRealtime()-lastPause);
+//        timer.start();
         pause_resume.setImageResource(R.drawable.icon_pause_recording);
         mediaRecorder.resume();
         Toast.makeText(getApplicationContext(), "Recording Resumed", Toast.LENGTH_SHORT).show();
