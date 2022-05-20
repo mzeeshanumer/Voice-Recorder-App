@@ -5,13 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/dark_grey"
-    tools:context=".UI.MainActivity">
+    tools:context=".UI.SplashScreenActivity">
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="98dp"
         android:layout_height="98dp"
-        android:contentDescription="SlashLogo"
+        android:contentDescription="@string/splashLogo"
         android:src="@drawable/icon_mic_logo"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -38,7 +38,7 @@
         android:layout_marginTop="50dp"
         android:background="@drawable/button_stroke"
         android:fontFamily="@font/nexalight"
-        android:text="Get Started"
+        android:text="@string/get_started"
         android:textAllCaps="true"
         android:textColor="#3b6b94"
         android:textSize="14sp"

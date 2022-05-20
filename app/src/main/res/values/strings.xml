@@ -1,7 +1,8 @@
 <resources>
+
+
     <string name="app_name">VoiceRecorder</string>
     <string name="voice_recorder">Voice Recorder</string>
-    <string name="get_started">Get Started</string>
     <string name="start_recording_now">Start Recording Now</string>
     <string name="tap_to_start_recording">Tap to Start Recording</string>
     <string name="pause">PAUSE</string>
@@ -12,7 +13,7 @@
     <string name="keep_screen_on_while_recording">Keep Screen On while Recording</string>
     <string name="theme">Theme</string>
     <string name="Default">Default</string>
-    <string name="default_file_nmae">Default File Nmae</string>
+    <string name="default_file_nmae">Default File Name</string>
     <string name="recording123">Recording123</string>
     <string name="give_feedback">Give Feedback</string>
     <string name="rate_us">Rate Us</string>
@@ -20,9 +21,27 @@
     <string name="cancel">Cancel</string>
     <string name="default_file_name">Default File Name</string>
     <string name="pause_play">Pause/Play</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="splashLogo">SplashLogo</string>
+    <string name="get_started">Get Started</string>
+    <string name="no">NO</string>
+    <string name="yes">Yes</string>
+    <string name="todo">TODO</string>
+    <string name="_00_00">00:00</string>
+    <string name="textview_tittle">TextView</string>
+    <string name="textview_detial">TextView</string>
+    <string name="share">Share</string>
+    <string name="delete">Delete</string>
+    <string name="details">Details</string>
+    <string name="media_player">Media Player</string>
+    <string name="file_name">File Name</string>
     <!-- TODO - add your ad unit Ids -->
     <!-- AdMob ad unit IDs -->
-    <string name="admob_app_id">ca-app-pub-XXXXXXXX~XXXXXXXXXXX</string>
-    <string name="banner_home_footer">ca-app-pub-XXXXXXXX~XXXXXXXXXXX</string>
-    <string name="interstitial_full_screen">ca-app-pub-XXXXXXXX~XXXXXXXXXXX</string>
+<!--    <string name="admob_app_id">ca-app-pub-9104652884839341~2301989813</string>-->
+<!--    <string name="admob_app_banner">ca-app-pub-9104652884839341/4922082590</string>-->
+<!--    <string name="admob_app_interstitial">ca-app-pub-9104652884839341/4730510907</string>-->
+    <string name="admob_app_id">ca-app-pub-3940256099942544~3347511713</string>
+    <string name="admob_app_banner">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="admob_app_interstitial">ca-app-pub-3940256099942544/1033173712</string>
+
 </resources>

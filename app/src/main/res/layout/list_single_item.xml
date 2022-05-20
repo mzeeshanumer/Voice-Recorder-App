@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -10,10 +9,12 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:background="@drawable/image_round"
+        android:layout_marginStart="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/icon_audio_svg" />
+        app:srcCompat="@drawable/icon_audio_svg"
+         />
 
 
     <TextView
@@ -25,7 +26,7 @@
         android:layout_marginEnd="40dp"
         android:ellipsize="middle"
         android:fontFamily="@font/nexalight"
-        android:text="TextView "
+        android:text="@string/textview_tittle"
         android:textColor="@color/black"
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -38,10 +39,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:fontFamily="@font/nexalight"
-        android:text="TextView"
-        android:textColor="#090808"
         android:layout_marginBottom="5dp"
+        android:fontFamily="@font/nexalight"
+        android:text="@string/textview_detial"
+        android:textColor="#090808"
         android:textSize="11sp"
         app:layout_constraintBottom_toBottomOf="@+id/list_image_view"
         app:layout_constraintStart_toEndOf="@+id/list_image_view" />
@@ -50,10 +51,10 @@
         android:id="@+id/duration"
         android:layout_width="wrap_content"
         android:layout_height="20dp"
-        android:layout_marginEnd="10dp"
+        android:layout_marginEnd="15dp"
         android:background="#fff"
         android:gravity="bottom"
-        android:text="00:00"
+        android:text="@string/_00_00"
         android:textColor="@color/black"
         android:textSize="12sp"
         android:textStyle="bold"
@@ -66,11 +67,10 @@
         android:id="@+id/image_btn_menu"
         android:layout_width="24dp"
         android:layout_height="24dp"
+        android:layout_marginEnd="15dp"
         android:layout_marginBottom="20dp"
-
         android:background="@color/white"
         android:padding="10dp"
-        android:layout_marginEnd="10dp"
         android:src="@drawable/icon_btn_menu"
         app:layout_constraintBottom_toBottomOf="@id/tv_list_date"
         app:layout_constraintEnd_toEndOf="parent"

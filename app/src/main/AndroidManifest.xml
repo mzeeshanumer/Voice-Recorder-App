@@ -18,28 +18,36 @@
         android:theme="@style/Theme.VoiceRecorder">
         <activity
             android:name="com.leeddev.recorder.UI.PrivacyPolicyActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name="com.leeddev.recorder.UI.DetailsActivity"
             android:exported="true"
+            android:screenOrientation="portrait"
             android:theme="@style/TransparentCompat" />
 
         <!-- Sample AdMob app ID: ca-app-pub-9104652884839341~2301989813 -->
+
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-9104652884839341~2301989813" />
+        android:value="ca-app-pub-3940256099942544~3347511713" />
+        <!--            android:value="ca-app-pub-9104652884839341~2301989813" -->
 
         <activity
             android:name="com.leeddev.recorder.UI.AudioListActivity"
+            android:screenOrientation="portrait"
             android:exported="true" />
         <activity
             android:name="com.leeddev.recorder.UI.SettingActivity"
-            android:exported="true" />
-        <activity
-            android:name="com.leeddev.recorder.UI.RecordingActivity"
+            android:screenOrientation="portrait"
             android:exported="true" />
         <activity
             android:name="com.leeddev.recorder.UI.MainActivity"
+            android:screenOrientation="portrait"
+            android:exported="true" />
+        <activity
+            android:name="com.leeddev.recorder.UI.SplashScreenActivity"
+            android:screenOrientation="portrait"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

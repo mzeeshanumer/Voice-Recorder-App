@@ -44,7 +44,7 @@
                 android:elevation="8dp"
                 android:fontFamily="@font/nexalight"
                 android:gravity="center"
-                android:text="NO"
+                android:text="@string/no"
                 android:textColor="@color/white"
                 android:textStyle="bold" />
 
@@ -61,7 +61,7 @@
                 android:elevation="8dp"
                 android:fontFamily="@font/nexalight"
                 android:gravity="center"
-                android:text="Yes"
+                android:text="@string/yes"
                 android:textColor="@color/white"
                 android:textStyle="bold" />
 

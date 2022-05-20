@@ -1,5 +1,6 @@
 package com.leeddev.recorder.UI;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.ActivityNotFoundException;
@@ -8,7 +9,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.View;
 import android.view.Window;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -21,11 +21,10 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
-import com.google.android.gms.ads.initialization.InitializationStatus;
-import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.leeddev.recorder.R;
 public class SettingActivity extends AppCompatActivity {
-    Switch switchCompat2,switchCompat1;
+    @SuppressLint("UseSwitchCompatOrMaterialCode")
+    Switch switchPauseCall,switchScreenOn;
     ConstraintLayout btn_rate_us;
     Toolbar toolbar;
     ImageView btn_home;
@@ -50,122 +49,101 @@ public class SettingActivity extends AppCompatActivity {
         editor=sharedpreferences.edit();
         tv_file_name = findViewById(R.id.tv_file_name);
         default_name = findViewById(R.id.list_defaultFilename);
-        switchCompat1=findViewById(R.id.switch_toggle1);
+        switchScreenOn=findViewById(R.id.switch_toggle2);
+        SharedPreferences sharedPreferences=getSharedPreferences("save",MODE_PRIVATE);
+        switchScreenOn.setChecked(sharedPreferences.getBoolean("value",false));
+        switchPauseCall=findViewById(R.id.switch_toggle1);
         SharedPreferences sharedPreferences1=getSharedPreferences("save",MODE_PRIVATE);
-        switchCompat1.setChecked(sharedPreferences1.getBoolean("value",false));
+        switchPauseCall.setChecked(sharedPreferences1.getBoolean("value",false));
 //HOME SCREEN
-        btn_home.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(SettingActivity.this, RecordingActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(intent);
-            }
+        btn_home.setOnClickListener(view -> {
+            Intent intent = new Intent(SettingActivity.this, MainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
         });
 //FIRST SWITCH BUTTONS
-        switchCompat1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        switchPauseCall.setOnClickListener(view -> {
 
-                if (switchCompat1.isChecked())
-                {
-                    // When switch checked
+            if (switchPauseCall.isChecked())
+            {
+                // When switch checked
 //                    keepScreenOn(true);
-                    SharedPreferences.Editor editor=getSharedPreferences("save",MODE_PRIVATE).edit();
-                    editor.putBoolean("value",false);
-                    editor.apply();
-                    switchCompat1.setChecked(false);
-                    Toast.makeText(getApplicationContext(),
-                            "Coming Soon",
-                            Toast.LENGTH_SHORT).show();
-                }
-                else
-                {
-                    // When switch unchecked
-                    SharedPreferences.Editor editor=getSharedPreferences("save",MODE_PRIVATE).edit();
-                    editor.putBoolean("value",false);
-                    editor.apply();
-                    switchCompat1.setChecked(false);
-                }
+                SharedPreferences.Editor editor=getSharedPreferences("save",MODE_PRIVATE).edit();
+                editor.putBoolean("value",false);
+                editor.apply();
+                switchPauseCall.setChecked(false);
+                Toast.makeText(getApplicationContext(),
+                        "Coming Soon",
+                        Toast.LENGTH_SHORT).show();
+            }
+            else
+            {
+                // When switch unchecked
+                SharedPreferences.Editor editor=getSharedPreferences("save",MODE_PRIVATE).edit();
+                editor.putBoolean("value",false);
+                editor.apply();
+                switchPauseCall.setChecked(false);
             }
         });
 //SECOND SWITCH BUTTONS
-        switchCompat2=findViewById(R.id.switch_toggle2);
-        SharedPreferences sharedPreferences=getSharedPreferences("save",MODE_PRIVATE);
-        switchCompat2.setChecked(sharedPreferences.getBoolean("value",false));
-        switchCompat2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (switchCompat2.isChecked())
-                {
-                    // When switch checked
-                    SharedPreferences.Editor editor=getSharedPreferences("save",MODE_PRIVATE).edit();
-                    editor.putBoolean("value",false);
-                    editor.apply();
-                    switchCompat2.setChecked(false);
-                    Toast.makeText(getApplicationContext(), "Coming Soon", Toast.LENGTH_SHORT).show();
-                }
-                else {// When switch unchecked
-                    SharedPreferences.Editor editor=getSharedPreferences("save",MODE_PRIVATE).edit();
-                    editor.putBoolean("value",false);
-                    editor.apply();
-                    switchCompat2.setChecked(false);
-                }
+
+        switchScreenOn.setOnClickListener(view -> {
+            if (switchScreenOn.isChecked())
+            {
+                // When switch checked
+                SharedPreferences.Editor editor=getSharedPreferences("save",MODE_PRIVATE).edit();
+                editor.putBoolean("value",false);
+                editor.apply();
+                switchScreenOn.setChecked(false);
+                Toast.makeText(getApplicationContext(), "Coming Soon", Toast.LENGTH_SHORT).show();
+            }
+            else {// When switch unchecked
+                SharedPreferences.Editor editor=getSharedPreferences("save",MODE_PRIVATE).edit();
+                editor.putBoolean("value",false);
+                editor.apply();
+                switchScreenOn.setChecked(false);
             }
         });
 //DEFAULT FILE NAME
-        default_name.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showDialog(SettingActivity.this);
-            }
-        });
+        default_name.setOnClickListener(v -> showDialog(SettingActivity.this));
 //RATE US
-        btn_rate_us.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                try {
-                    Uri uri= Uri.parse("market://details?id="+ getPackageName());
-                    Intent intent =new Intent(Intent.ACTION_VIEW,uri);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(intent);
-                }catch (ActivityNotFoundException e){
-                    Uri uri = Uri.parse("http://play.google.com/store/apps/details?id="+ getPackageName());
-                    Intent intent = new Intent(Intent.ACTION_VIEW,uri);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(intent);
-                }
-            }
-        });
-//FEEDBACK
-        give_feedback.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                try {
-                    Uri uri= Uri.parse("market://details?id="+ getPackageName());
-                    Intent intent =new Intent(Intent.ACTION_VIEW,uri);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(intent);
-                }catch (ActivityNotFoundException e){
-                    Uri uri = Uri.parse("http://play.google.com/store/apps/details?id="+ getPackageName());
-                    Intent intent = new Intent(Intent.ACTION_VIEW,uri);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(intent);
-                }
-            }
-        });
-        privacy_policy.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent= new Intent(SettingActivity.this, PrivacyPolicyActivity.class);
+        btn_rate_us.setOnClickListener(view -> {
+            try {
+                Uri uri= Uri.parse("market://details?id="+ getPackageName());
+                Intent intent =new Intent(Intent.ACTION_VIEW,uri);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+            }catch (ActivityNotFoundException e){
+                Uri uri = Uri.parse("http://play.google.com/store/apps/details?id="+ getPackageName());
+                Intent intent = new Intent(Intent.ACTION_VIEW,uri);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
             }
         });
+//FEEDBACK
+        give_feedback.setOnClickListener(view -> {
+            try {
+                Uri uri= Uri.parse("market://details?id="+ getPackageName());
+                Intent intent =new Intent(Intent.ACTION_VIEW,uri);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+            }catch (ActivityNotFoundException e){
+                Uri uri = Uri.parse("http://play.google.com/store/apps/details?id="+ getPackageName());
+                Intent intent = new Intent(Intent.ACTION_VIEW,uri);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+            }
+        });
+        privacy_policy.setOnClickListener(view -> {
+            Intent intent= new Intent(SettingActivity.this, PrivacyPolicyActivity.class);
+            startActivity(intent);
+        });
+        //BANNER ADS
+        MobileAds.initialize(this, initializationStatus -> {
+        });
+        AdRequest adRequest = new AdRequest.Builder().build();
+        ad_view.loadAd(adRequest);
     }
-
-//    public void keepScreenOn(boolean keep) {
-//        switchCompat1.setKeepScreenOn(keep);
-//    }
 //DEFAULT FILE NAME DIALOG BOX
     public void showDialog(Activity activity){
         final Dialog dialog = new Dialog(activity);
@@ -174,35 +152,19 @@ public class SettingActivity extends AppCompatActivity {
         dialog.setContentView(R.layout.default_name_dialogbox);
         final EditText enter_name = dialog.findViewById(R.id.enter_name);
 //DEFAULT FILE NAME SAVE BUTTON
-        TextView dialogButtonSave = (TextView) dialog.findViewById(R.id.tv_save);
-        dialogButtonSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-          String edit_name =enter_name.getText().toString();
-          editor.putString("filename",enter_name.getText().toString());
-          tv_file_name.setText(edit_name);
-          Toast.makeText(getApplicationContext(),"File Name Changed",Toast.LENGTH_SHORT).show();
-          editor.apply();
-          dialog.dismiss();
-            }
+        TextView dialogButtonSave = dialog.findViewById(R.id.tv_save);
+        dialogButtonSave.setOnClickListener(v -> {
+      String edit_name =enter_name.getText().toString();
+      editor.putString("filename",enter_name.getText().toString());
+      tv_file_name.setText(edit_name);
+      Toast.makeText(getApplicationContext(),"File Name Changed",Toast.LENGTH_SHORT).show();
+      editor.apply();
+      dialog.dismiss();
         });
 //DEFAULT FILE NAME CANCEL BUTTON
-        TextView dialogButtonCancel = (TextView) dialog.findViewById(R.id.tv_cancel);
-        dialogButtonCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
+        TextView dialogButtonCancel = dialog.findViewById(R.id.tv_cancel);
+        dialogButtonCancel.setOnClickListener(v -> dialog.dismiss());
         dialog.show();
-//BANNER ADS
-        MobileAds.initialize(this, new OnInitializationCompleteListener(){
-            @Override
-            public void onInitializationComplete(InitializationStatus initializationStatus) {
-            }
-        });
-        ad_view = findViewById(R.id.ads_view);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        ad_view.loadAd(adRequest);
+
     }
 }

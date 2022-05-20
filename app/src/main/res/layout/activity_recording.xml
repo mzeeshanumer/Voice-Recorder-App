@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:animateLayoutChanges="true"
-    tools:context=".UI.RecordingActivity">
+    tools:context=".UI.MainActivity">
 
     <include
         android:id="@+id/toolbar"
@@ -21,7 +21,7 @@
         android:layout_height="50dp"
         android:background="@color/light_grey"
         ads:adSize="BANNER"
-        ads:adUnitId="ca-app-pub-9104652884839341/4922082590"
+        ads:adUnitId="@string/admob_app_banner"
         app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
     <androidx.recyclerview.widget.RecyclerView

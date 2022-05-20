@@ -11,12 +11,12 @@
     android:background="@color/white"
     android:elevation="8dp"
     android:id="@+id/toolbar"
-    app:contentInsetStart="40dp"
+    app:contentInsetStart="30dp"
     app:titleTextAppearance="@style/TextAppearance.Material3.TitleLarge"
     app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
     app:title="@string/voice_recorder"
     app:titleTextColor="#000000"
-    app:contentInsetRight="12dp">
+    app:contentInsetRight="20dp">
 
     <ImageView
         android:layout_gravity="end"
