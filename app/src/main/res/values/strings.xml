@@ -9,8 +9,8 @@
     <string name="resume">RESUME</string>
     <string name="description_dialogue">Recording 123</string>
     <string name="screen_on">Screen On</string>
-    <string name="pause_during_call">Pause During Call</string>
-    <string name="keep_screen_on_while_recording">Keep Screen On while Recording</string>
+    <string name="pause_during_call">Pause During a Call</string>
+    <string name="keep_screen_on_while_recording">Keep the Screen On while Recording</string>
     <string name="theme">Theme</string>
     <string name="Default">Default</string>
     <string name="default_file_nmae">Default File Name</string>
@@ -43,5 +43,8 @@
     <string name="admob_app_id">ca-app-pub-3940256099942544~3347511713</string>
     <string name="admob_app_banner">ca-app-pub-3940256099942544/6300978111</string>
     <string name="admob_app_interstitial">ca-app-pub-3940256099942544/1033173712</string>
+    <string name="new_recording">New Recording</string>
+    <string name="exit">Exit</string>
+    <string name="are_you_sure_you_want_delete_this_recording">Are you sure you want delete this recording?</string>
 
 </resources>

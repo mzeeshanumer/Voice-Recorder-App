@@ -11,8 +11,8 @@
     android:background="@color/white"
     android:elevation="8dp"
     android:id="@+id/toolbar"
-    app:contentInsetStart="30dp"
-    app:titleTextAppearance="@style/TextAppearance.Material3.TitleLarge"
+    app:contentInsetStart="22dp"
+    app:titleTextAppearance="@style/TextAppearance.AppCompat.Light.SearchResult.Title"
     app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
     app:title="@string/voice_recorder"
     app:titleTextColor="#000000"
@@ -23,6 +23,7 @@
         android:id="@+id/settingsAction"
         android:layout_width="21dp"
         android:layout_height="21dp"
+
         android:src="@drawable/icon_setting"
         />
 

@@ -8,13 +8,15 @@
         android:id="@+id/list_image_view"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:background="@drawable/image_round"
         android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/image_round"
+        android:padding="7dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/icon_audio_svg"
-         />
+        app:srcCompat="@drawable/icon_audio_svg" />
 
 
     <TextView
@@ -22,15 +24,14 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="5dp"
         android:layout_marginEnd="40dp"
-        android:ellipsize="middle"
         android:fontFamily="@font/nexalight"
+        android:lineSpacingExtra="3dp"
         android:text="@string/textview_tittle"
         android:textColor="@color/black"
-        android:textSize="12sp"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/list_image_view"
         app:layout_constraintTop_toTopOf="@+id/list_image_view" />
 
@@ -39,42 +40,44 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
         android:fontFamily="@font/nexalight"
         android:text="@string/textview_detial"
         android:textColor="#090808"
-        android:textSize="11sp"
+        android:textSize="12dp"
         app:layout_constraintBottom_toBottomOf="@+id/list_image_view"
-        app:layout_constraintStart_toEndOf="@+id/list_image_view" />
+        app:layout_constraintStart_toEndOf="@+id/list_image_view"
+        app:layout_constraintTop_toBottomOf="@+id/tv_list_title" />
 
     <TextView
         android:id="@+id/duration"
         android:layout_width="wrap_content"
-        android:layout_height="20dp"
-        android:layout_marginEnd="15dp"
+        android:layout_height="15dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="3dp"
         android:background="#fff"
         android:gravity="bottom"
         android:text="@string/_00_00"
         android:textColor="@color/black"
         android:textSize="12sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@id/tv_list_date"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_list_title"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toBottomOf="@id/tv_list_title" />
 
     <ImageButton
         android:id="@+id/image_btn_menu"
         android:layout_width="24dp"
         android:layout_height="24dp"
+        android:layout_marginTop="0dp"
         android:layout_marginEnd="15dp"
-        android:layout_marginBottom="20dp"
         android:background="@color/white"
         android:padding="10dp"
         android:src="@drawable/icon_btn_menu"
-        app:layout_constraintBottom_toBottomOf="@id/tv_list_date"
+
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_list_title"
+        app:layout_constraintTop_toTopOf="@+id/tv_list_title"
         app:layout_constraintVertical_bias="0.863" />
 
     <View

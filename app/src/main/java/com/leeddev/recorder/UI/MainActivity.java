@@ -42,6 +42,8 @@ import com.google.android.gms.ads.interstitial.InterstitialAd;
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 import com.leeddev.recorder.R;
 import com.leeddev.recorder.RecylerViewUtils.AudioListAdapter;
+import com.leeddev.recorder.Service.ForegroundService;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.Date;
@@ -50,10 +52,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private boolean isRecording = false;
     private MediaRecorder mediaRecorder;
     private Chronometer timer;
+//public static Chronometer timer;
     RelativeLayout startRecording, recordingInProgress;
-    private RecyclerView audioList;
+    public static RecyclerView audioList;
     private File[] allFiles;
-    private AudioListAdapter audioListAdapter;
+    public static AudioListAdapter audioListAdapter;
     private MediaPlayer mediaPlayer = null;
     private boolean isPlaying = false;
     private File fileToPlay;
@@ -71,7 +74,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Toolbar toolbar;
     Dialog playerDialog;
     ImageView recordBtn;
-    long timeWhenStopped = 0;
+    public static long timeWhenStopped = 0;
     ImageButton pause_resume;
     AdView ad_view;
     SharedPreferences sharedpreferences;
@@ -80,7 +83,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_recording);
+        setContentView(R.layout.activity_main);
         ad_view = findViewById(R.id.ads_view);
         startRecording = findViewById(R.id.startRecordingParent);
         saveRecording = findViewById(R.id.btn_save);
@@ -106,6 +109,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         audioList.setHasFixedSize(true);
         audioList.setLayoutManager(new LinearLayoutManager(MainActivity.this));
         audioList.setAdapter(audioListAdapter);
+//        audioListAdapter.notifyDataSetChanged();
         sharedpreferences = getSharedPreferences("", Context.MODE_PRIVATE);
         editor = sharedpreferences.edit();
 //BANNER ADS
@@ -165,6 +169,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Log.d("TAG", "THE Intertiated was not Ready yet");
             }
         });
+//        Intent serviceIntent = new Intent(this, ForegroundService.class);
+//        this.startService(serviceIntent);
     } //Closed OnCreate Here
 
 //Interstitial Ad
@@ -199,6 +205,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     Toast.makeText(MainActivity.this, "Recording Started", Toast.LENGTH_SHORT).show();
                     startRecording.setVisibility(View.GONE);
                     recordingInProgress.setVisibility(View.VISIBLE);
+
                 }
                 break;
         }
@@ -206,17 +213,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 //Start Recording and Get Path, Time, Date
     @SuppressLint("NewApi")
-    private void startRecording() {
+    public void startRecording() {
         timer.setBase(SystemClock.elapsedRealtime());
         timeWhenStopped = 0;
         timer.start();
+        Intent serviceIntent = new Intent(this, ForegroundService.class);
+      this.startService(serviceIntent);
         pause_resume.setImageResource(R.drawable.icon_pause_recording);
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy_MM_dd_hh_mm_ss", Locale.CANADA);
+       SimpleDateFormat formatter = new SimpleDateFormat("yyyy_MM_dd_hh_mm_ss", Locale.CANADA);
         Date now = new Date();
         String recordPath = MainActivity.this.getExternalFilesDir("/").getAbsolutePath();
         SharedPreferences sharedPreferences = getSharedPreferences("save", MODE_PRIVATE);
         String filename = sharedPreferences.getString("filename", "rename123");
-        recordFile = filename + formatter.format(now) + ".3gp";
+      recordFile = filename + formatter.format(now) + ".mp3";
         mediaRecorder = new MediaRecorder();
         mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
         mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
@@ -228,6 +237,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 e.printStackTrace();
             }
             mediaRecorder.start();
+
         }
 //Stop Recording and Set Audio File in Path
     private void stopRecording() {
@@ -239,16 +249,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mediaRecorder.stop();
         mediaRecorder.release();
         mediaRecorder = null;
+//        Intent serviceIntent = new Intent(this, ForegroundService.class);
+//        this.stopService(serviceIntent);
         Toast.makeText(getApplicationContext(), "Recording Saved", Toast.LENGTH_SHORT).show();
         recordingInProgress.setVisibility(View.GONE);
         startRecording.setVisibility(View.VISIBLE);
         String path = MainActivity.this.getExternalFilesDir("/").getAbsolutePath();
         File directory = new File(path);
         allFiles = directory.listFiles();
-        audioListAdapter = new AudioListAdapter(this,allFiles, this);
+     audioListAdapter = new AudioListAdapter(this,allFiles, this);
         audioList.setHasFixedSize(true);
         audioList.setLayoutManager(new LinearLayoutManager(MainActivity.this));
-        audioList.setAdapter(audioListAdapter);
+       audioList.setAdapter(audioListAdapter);
+//        audioListAdapter.notifyDataSetChanged();
     }
 //Pause Recording Function
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -290,6 +303,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClickListener(File file, int position) {
         // startActivity(new Intent(RecordingActivity.this,AudioListActivity.class));
         playerDialog.show();
+
         playBtn = playerDialog.findViewById(R.id.player_play_btn);
         playerFilename = playerDialog.findViewById(R.id.player_filename);
         playerseekBar = playerDialog.findViewById(R.id.player_seekBar);
@@ -314,6 +328,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 isPlaying = true;
                 playAudio(file);
+
             }
         });
  //player Cancel Button
@@ -322,6 +337,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 stopAudio();
             }
             playerDialog.dismiss();
+            playerseekBar.setProgress(0);
         });
     }
   //Player sheet Stop Method
@@ -356,7 +372,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void run() {
                 playerseekBar.setProgress(mediaPlayer.getCurrentPosition());
-                seekbarHandler.postDelayed(this, 500);
+                seekbarHandler.postDelayed(this, 50);
             }
         };
     }
@@ -384,12 +400,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         dialog.setContentView(R.layout.exit_dialogbox);
         dialog.setCanceledOnTouchOutside(false);
         // getting reference of TextView
-        TextView dialogButtonYes = dialog.findViewById(R.id.textViewYes);
-        TextView dialogButtonNo = dialog.findViewById(R.id.textViewNo);
+        TextView dialogButtonExit = dialog.findViewById(R.id.textViewExit);
+        TextView dialogButtonCancel = dialog.findViewById(R.id.textViewCancel);
 // Click listener for No
-        dialogButtonNo.setOnClickListener(v -> dialog.dismiss());
+        dialogButtonCancel.setOnClickListener(v -> dialog.dismiss());
 // Click listener for Yes
-        dialogButtonYes.setOnClickListener(v -> finishAffinity());
+        dialogButtonExit.setOnClickListener(v -> finishAffinity());
  // show the exit dialog
         dialog.show();
     }

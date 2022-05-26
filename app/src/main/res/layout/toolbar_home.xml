@@ -8,11 +8,11 @@
         android:background="@color/white"
         android:elevation="8dp"
         android:id="@+id/toolbar"
-    app:contentInsetStart="30dp"
-        app:titleTextAppearance="@style/TextAppearance.Material3.TitleLarge"
+    app:contentInsetStart="22dp"
+        app:titleTextAppearance="@style/TextAppearance.AppCompat.Light.SearchResult.Title"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         app:title="Settings"
-        app:titleTextColor="#000000"
+        app:titleTextColor="@color/black"
         app:contentInsetRight="20dp">
 
     <ImageView

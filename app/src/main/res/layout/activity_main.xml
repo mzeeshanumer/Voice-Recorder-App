@@ -1,50 +1,175 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/dark_grey"
-    tools:context=".UI.SplashScreenActivity">
+    android:animateLayoutChanges="true"
+    tools:context=".UI.MainActivity">
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="98dp"
-        android:layout_height="98dp"
-        android:contentDescription="@string/splashLogo"
-        android:src="@drawable/icon_mic_logo"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar_setting"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
-    <TextView
-        android:id="@+id/tv_vrText"
+    <com.google.android.gms.ads.AdView
+        xmlns:ads="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/ads_view"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/light_grey"
+        ads:adSize="BANNER"
+        ads:adUnitId="@string/admob_app_banner"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/audio_list_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/screenSplitGuideline"
+        app:layout_constraintTop_toBottomOf="@id/ads_view" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/screenSplitGuideline"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
-        android:fontFamily="@font/nexalight"
-        android:text="@string/voice_recorder"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="@+id/imageView"
-        app:layout_constraintStart_toStartOf="@+id/imageView"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.75" />
 
-    <Button
-        android:id="@+id/getStartedAction"
-        android:layout_width="162dp"
-        android:layout_height="38dp"
-        android:layout_marginTop="50dp"
-        android:background="@drawable/button_stroke"
-        android:fontFamily="@font/nexalight"
-        android:text="@string/get_started"
-        android:textAllCaps="true"
-        android:textColor="#3b6b94"
-        android:textSize="14sp"
-        android:textStyle="bold"
+    <RelativeLayout
+        android:id="@+id/startRecordingParent"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:animateLayoutChanges="true"
+        android:background="@color/dark_grey"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/screenSplitGuideline"
+        app:layout_constraintVertical_bias="1.0">
+
+
+        <ImageView
+            android:id="@+id/inside_imageview"
+            android:layout_width="62dp"
+            android:layout_height="62dp"
+            android:layout_centerInParent="true"
+
+            android:layout_marginTop="70dp"
+            android:layout_marginBottom="50dp"
+            android:src="@drawable/icon_redcircle_background" />
+
+        <ImageView
+            android:id="@+id/btn_start"
+            android:layout_width="34dp"
+            android:layout_height="34dp"
+            android:layout_alignStart="@id/inside_imageview"
+            android:layout_alignTop="@id/inside_imageview"
+            android:layout_alignEnd="@id/inside_imageview"
+            android:layout_alignBottom="@id/inside_imageview"
+            android:layout_marginLeft="6dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginRight="6dp"
+            android:layout_marginBottom="6dp"
+            android:padding="5dp"
+            android:src="@drawable/icon_mic_recorder" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="20dp"
+            android:gravity="center"
+            android:text="@string/tap_to_start_recording"
+            android:textColor="@color/white"
+            android:textSize="14sp" />
+
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/recordingStartedParentView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:animateLayoutChanges="true"
+        android:background="@color/dark_grey"
         android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="@+id/tv_vrText"
-        app:layout_constraintStart_toStartOf="@+id/tv_vrText"
-        app:layout_constraintTop_toBottomOf="@+id/tv_vrText" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/screenSplitGuideline">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:foregroundGravity="center_horizontal"
+            android:text="@string/new_recording"
+            android:textColor="@color/white"
+            android:textSize="16dp" />
+
+        <Chronometer
+            android:id="@+id/timer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="50dp"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/white"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/inside_imageviewR"
+            android:layout_width="62dp"
+            android:layout_height="62dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="70dp"
+            android:layout_marginBottom="50dp"
+            android:src="@drawable/icon_redcircle_background" />
+
+        <ImageButton
+            android:id="@+id/btn_pause_resume"
+            android:layout_width="34dp"
+            android:layout_height="34dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="70dp"
+            android:layout_marginEnd="80dp"
+            android:layout_marginBottom="50dp"
+            android:background="@null"
+            android:src="@drawable/icon_pause_recording" />
+
+        <ImageButton
+            android:id="@+id/btn_save"
+            android:layout_width="34dp"
+            android:layout_height="34dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="80dp"
+            android:layout_marginTop="70dp"
+            android:layout_marginEnd="50dp"
+            android:layout_marginBottom="50dp"
+            android:background="@null"
+            android:src="@drawable/icon_stop_recording" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="20dp"
+            android:gravity="center"
+            android:text="@string/tap_to_stop_recording"
+            android:textColor="@color/white"
+            android:textSize="14sp" />
+    </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

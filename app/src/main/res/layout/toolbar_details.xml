@@ -7,10 +7,10 @@
     android:background="@color/light_grey"
     android:elevation="8dp"
     app:contentInsetRight="20dp"
-    app:contentInsetStart="30dp"
+    app:contentInsetStart="22dp"
     app:popupTheme="@style/TransparentCompat"
     app:title="Details"
-    app:titleTextAppearance="@style/TextAppearance.Material3.TitleLarge"
+    app:titleTextAppearance="@style/TextAppearance.Material3.TitleMedium"
     app:titleTextColor="@color/white">
 
     <ImageView

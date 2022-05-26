@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/bottom_sheet_exit_linear"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_width="326dp"
+    android:layout_height="171dp"
     android:background="@drawable/card_round"
     android:orientation="vertical">
 
@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="30dp"
             android:fontFamily="@font/nexalight"
             android:gravity="center"
             android:text="Are You Want To Exit?"
@@ -33,7 +33,7 @@
 
             <!-- No  Text View -->
             <TextView
-                android:id="@+id/textViewNo"
+                android:id="@+id/textViewExit"
                 android:layout_width="121dp"
                 android:layout_height="38dp"
                 android:layout_gravity="center"
@@ -44,13 +44,13 @@
                 android:elevation="8dp"
                 android:fontFamily="@font/nexalight"
                 android:gravity="center"
-                android:text="@string/no"
+                android:text="@string/exit"
                 android:textColor="@color/white"
                 android:textStyle="bold" />
 
             <!-- Yes Text View -->
             <TextView
-                android:id="@+id/textViewYes"
+                android:id="@+id/textViewCancel"
                 android:layout_width="121dp"
                 android:layout_height="38dp"
                 android:layout_gravity="center"
@@ -61,7 +61,7 @@
                 android:elevation="8dp"
                 android:fontFamily="@font/nexalight"
                 android:gravity="center"
-                android:text="@string/yes"
+                android:text="@string/cancel"
                 android:textColor="@color/white"
                 android:textStyle="bold" />
 
