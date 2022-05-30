@@ -69,9 +69,9 @@ public class SettingActivity extends AppCompatActivity {
                 switchPauseCall.setEnabled(false);
                 // When switch checked
 //                    keepScreenOn(true);
-                SharedPreferences.Editor editor = getSharedPreferences("save", MODE_PRIVATE).edit();
-                editor.putBoolean("value", false);
-                editor.apply();
+//                SharedPreferences.Editor editor = getSharedPreferences("save", MODE_PRIVATE).edit();
+//                editor.putBoolean("value", false);
+//                editor.apply();
                 switchPauseCall.setClickable(false);
                 switchPauseCall.setChecked(false);
                 Toast.makeText(getApplicationContext(),
@@ -79,9 +79,9 @@ public class SettingActivity extends AppCompatActivity {
                         Toast.LENGTH_SHORT).show();
             } else {
                 // When switch unchecked
-                SharedPreferences.Editor editor = getSharedPreferences("save", MODE_PRIVATE).edit();
-                editor.putBoolean("value", false);
-                editor.apply();
+//                SharedPreferences.Editor editor = getSharedPreferences("save", MODE_PRIVATE).edit();
+//                editor.putBoolean("value", false);
+//                editor.apply();
                 switchPauseCall.setEnabled(false);
                 switchPauseCall.setClickable(false);
                 switchPauseCall.setChecked(false);
