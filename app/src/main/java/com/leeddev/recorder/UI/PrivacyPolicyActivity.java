@@ -8,7 +8,8 @@ import android.webkit.WebView;
 import com.leeddev.recorder.R;
 
 public class PrivacyPolicyActivity extends AppCompatActivity {
-WebView webView;
+    WebView webView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -25,6 +25,7 @@ import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -32,6 +33,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.google.android.gms.ads.AdError;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -54,7 +56,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private boolean isRecording = false;
     private MediaRecorder mediaRecorder;
     private Chronometer timer;
-    //public static Chronometer timer;
     RelativeLayout startRecording, recordingInProgress;
     public static RecyclerView audioList;
     private File[] allFiles;
@@ -142,11 +143,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //                            startActivity(new Intent(MainActivity.this,RecordingActivity.class));
                         mInterstitialAd = null;
                     }
+
                     @Override
                     public void onAdFailedToShowFullScreenContent(@NonNull AdError adError) {
                         // Called when fullscreen content failed to show.
                         Log.d("TAG", "The ad failed to show.");
                     }
+
                     @Override
                     public void onAdShowedFullScreenContent() {
                         // Called when fullscreen content is shown.
@@ -180,8 +183,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
-    private File[] getFiles()
-    {
+    private File[] getFiles() {
         String path = MainActivity.this.getExternalFilesDir("/").getAbsolutePath();
         File directory = new File(path);
         allFiles = directory.listFiles();
@@ -201,6 +203,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         mInterstitialAd = interstitialAd;
                         Log.i("TAG", "onAdLoaded");
                     }
+
                     @Override
                     public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
                         // Handle the error
@@ -209,7 +212,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     }
                 });
     }
-//Get Permission Before Start Recording
+
+    //Get Permission Before Start Recording
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onClick(View view) {
@@ -308,6 +312,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             return false;
         }
     }
+
     //Player sheet
     @Override
     public void onClickListener(File file, int position) {

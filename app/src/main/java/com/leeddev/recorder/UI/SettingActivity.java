@@ -59,9 +59,7 @@ public class SettingActivity extends AppCompatActivity {
         switchPauseCall = findViewById(R.id.switch_toggle1);
         switchPauseCall.setChecked(sharedpreferences.getBoolean("value", false));
 //HOME SCREEN
-        btn_home.setOnClickListener(view -> {
-            super.onBackPressed();
-        });
+        btn_home.setOnClickListener(view -> super.onBackPressed());
 //FIRST SWITCH BUTTONS
         switchPauseCall.setOnClickListener(view -> {
 

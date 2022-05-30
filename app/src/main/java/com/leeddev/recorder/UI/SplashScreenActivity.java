@@ -9,8 +9,10 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.gms.ads.AdError;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.FullScreenContentCallback;
@@ -23,11 +25,12 @@ public class SplashScreenActivity extends AppCompatActivity {
     Button start;
     Animation fadeInAnimation;
     private InterstitialAd mInterstitialAd;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
-        start=findViewById(R.id.getStartedAction);
+        start = findViewById(R.id.getStartedAction);
         showAds();
 // Using handler with postDelayed called runnable run method
         new Handler().postDelayed(() -> {
@@ -38,13 +41,13 @@ public class SplashScreenActivity extends AppCompatActivity {
             start.setOnClickListener(view -> {
                 if (mInterstitialAd != null) {
                     mInterstitialAd.show(SplashScreenActivity.this);
-                    mInterstitialAd.setFullScreenContentCallback(new FullScreenContentCallback(){
+                    mInterstitialAd.setFullScreenContentCallback(new FullScreenContentCallback() {
                         @Override
                         public void onAdDismissedFullScreenContent() {
                             // Called when fullscreen content is dismissed.
-                           Log.d("TAG", "The ad was dismissed.");
+                            Log.d("TAG", "The ad was dismissed.");
                             startActivity(new Intent(SplashScreenActivity.this, MainActivity.class));
-                            mInterstitialAd= null;
+                            mInterstitialAd = null;
 
                         }
 
@@ -60,19 +63,19 @@ public class SplashScreenActivity extends AppCompatActivity {
                             Log.d("TAG", "The ad was shown.");
                         }
                     });
-                }else {
-                    Log.d("TAG","THE Interstitial was not Ready yet");
+                } else {
+                    Log.d("TAG", "THE Interstitial was not Ready yet");
                     startActivity(new Intent(SplashScreenActivity.this, MainActivity.class));
                 }
             });
-        }, 2*1000);
+        }, 2 * 1000);
     }
 
-//Interstitial Ad
+    //Interstitial Ad
     private void showAds() {
         AdRequest adRequest = new AdRequest.Builder().build();
 
-        InterstitialAd.load(this,this.getResources ().getString (R.string.admob_app_interstitial), adRequest,
+        InterstitialAd.load(this, this.getResources().getString(R.string.admob_app_interstitial), adRequest,
                 new InterstitialAdLoadCallback() {
                     @Override
                     public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {

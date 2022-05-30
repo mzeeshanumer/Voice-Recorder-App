@@ -31,11 +31,6 @@
             android:name="com.leeddev.recorder.UI.PrivacyPolicyActivity"
             android:screenOrientation="portrait"
             android:exported="false" />
-        <activity
-            android:name="com.leeddev.recorder.UI.DetailsActivity"
-            android:exported="true"
-            android:screenOrientation="portrait"
-            android:theme="@style/TransparentCompat" />
 
         <!-- Sample AdMob app ID: ca-app-pub-9104652884839341~2301989813 -->
 

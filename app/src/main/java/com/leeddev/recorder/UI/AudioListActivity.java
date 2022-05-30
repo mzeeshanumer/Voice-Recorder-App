@@ -7,14 +7,17 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.leeddev.recorder.R;
 import com.leeddev.recorder.RecylerViewUtils.AudioListAdapter;
+
 import java.io.File;
 import java.io.IOException;
 
@@ -24,11 +27,11 @@ public class AudioListActivity extends AppCompatActivity implements AudioListAda
     private RecyclerView audioList;
     private File[] allFiles;
     private AudioListAdapter audioListAdapter;
-    private MediaPlayer mediaPlayer =null;
+    private MediaPlayer mediaPlayer = null;
     private boolean isPlaying = false;
     private File fileToPlay;
     private ImageButton playBtn;
-    private TextView playerHeader,playerFilename;
+    private TextView playerHeader, playerFilename;
     private SeekBar playerseekBar;
     private Handler seekbarHandler;
     private Runnable updateSeekbar;
@@ -43,7 +46,7 @@ public class AudioListActivity extends AppCompatActivity implements AudioListAda
         playBtn = findViewById(R.id.player_play_btn);
         playerFilename = findViewById(R.id.player_filename);
         playerseekBar = findViewById(R.id.player_seekBar);
-        audioListAdapter = new AudioListAdapter(this,allFiles,this);
+        audioListAdapter = new AudioListAdapter(this, allFiles, this);
         audioList.setHasFixedSize(true);
         audioList.setLayoutManager(new LinearLayoutManager(this));
         audioList.setAdapter(audioListAdapter);
@@ -55,8 +58,7 @@ public class AudioListActivity extends AppCompatActivity implements AudioListAda
         bottomSheetBehavior.addBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
             @Override
             public void onStateChanged(@NonNull View bottomSheet, int newState) {
-                if(newState == BottomSheetBehavior.STATE_HIDDEN)
-                {
+                if (newState == BottomSheetBehavior.STATE_HIDDEN) {
                     bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
                 }
             }
@@ -70,15 +72,14 @@ public class AudioListActivity extends AppCompatActivity implements AudioListAda
         playBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(isPlaying){
-                    if(fileToPlay!=null)
-                    {
+                if (isPlaying) {
+                    if (fileToPlay != null) {
                         playBtn.setImageResource(R.drawable.icon_pause_player);
 
                         pauseAudio();
                     }
-                }
-                else{resumeAudio();
+                } else {
+                    resumeAudio();
                     playBtn.setImageResource(R.drawable.icon_play_player);
 
                 }
@@ -93,15 +94,15 @@ public class AudioListActivity extends AppCompatActivity implements AudioListAda
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
-                if(fileToPlay!=null)
-                {
+                if (fileToPlay != null) {
                     pauseAudio();
                 }
             }
+
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                if(fileToPlay!=null)
-                {int progress = playerseekBar.getProgress();
+                if (fileToPlay != null) {
+                    int progress = playerseekBar.getProgress();
                     mediaPlayer.seekTo(progress);
                     resumeAudio();
                 }
@@ -113,11 +114,10 @@ public class AudioListActivity extends AppCompatActivity implements AudioListAda
     @Override
     public void onClickListener(File file, int position) {
         fileToPlay = file;
-        if(isPlaying)
-        {stopAudio();
+        if (isPlaying) {
+            stopAudio();
             playAudio(fileToPlay);
-        }
-        else {
+        } else {
             playAudio(fileToPlay);
         }
     }
@@ -158,7 +158,7 @@ public class AudioListActivity extends AppCompatActivity implements AudioListAda
         playerseekBar.setMax(mediaPlayer.getDuration());
         seekbarHandler = new Handler();
         updateRunnable();
-        seekbarHandler.postDelayed(updateSeekbar,0);
+        seekbarHandler.postDelayed(updateSeekbar, 0);
         isPlaying = true;
     }//playAudio ended
 
@@ -167,29 +167,30 @@ public class AudioListActivity extends AppCompatActivity implements AudioListAda
             @Override
             public void run() {
                 playerseekBar.setProgress(mediaPlayer.getCurrentPosition());
-                seekbarHandler.postDelayed(this,500);
+                seekbarHandler.postDelayed(this, 500);
 
             }
         };
     }
 
 
-    public void pauseAudio(){
+    public void pauseAudio() {
         mediaPlayer.pause();
         isPlaying = false;
         seekbarHandler.removeCallbacks(updateSeekbar);
     }
 
-    public void resumeAudio(){
+    public void resumeAudio() {
         mediaPlayer.start();
         isPlaying = true;
         updateRunnable();
-        seekbarHandler.postDelayed(updateSeekbar,0);
+        seekbarHandler.postDelayed(updateSeekbar, 0);
     }
+
     @Override
     public void onStop() {
         super.onStop();
-        if(isPlaying){
+        if (isPlaying) {
             stopAudio();
         }
     }
