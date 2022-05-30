@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.leeddev.recorder">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -20,9 +21,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.VoiceRecorder">
         <service
-            android:name="com.leeddev.recorder.Service.ForegroundService"
+           android:name="com.leeddev.recorder.UI.ForegroundService"
+            android:foregroundServiceType="microphone"
             android:enabled="true"
-            android:exported="true" />
+            android:exported="true"
+            tools:ignore="MissingClass" />
+
         <activity
             android:name="com.leeddev.recorder.UI.PrivacyPolicyActivity"
             android:screenOrientation="portrait"
