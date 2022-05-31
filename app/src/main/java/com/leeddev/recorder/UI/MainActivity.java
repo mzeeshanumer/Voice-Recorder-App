@@ -54,6 +54,7 @@ import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, AudioListAdapter.onItemListClickbabu {
     private boolean isRecording = false;
+    private boolean rVDisable = false;
     private MediaRecorder mediaRecorder;
     private Chronometer timer;
     RelativeLayout startRecording, recordingInProgress;
@@ -131,16 +132,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
 //STOP RECORDING BUTTON /ALSO SAVE
         saveRecording.setOnClickListener(view -> {
+            loadAds();
             stopRecording();
 //SHOW InterstitialAd When Clicked Stop Button
+
             if (mInterstitialAd != null) {
                 mInterstitialAd.show(MainActivity.this);
                 mInterstitialAd.setFullScreenContentCallback(new FullScreenContentCallback() {
+
                     @Override
                     public void onAdDismissedFullScreenContent() {
                         // Called when fullscreen content is dismissed.
                         Log.d("TAG", "The ad was dismissed.");
-//                            startActivity(new Intent(MainActivity.this,RecordingActivity.class));
+                     /*   Intent intent=new Intent(getApplicationContext(),MainActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                        startActivity(intent);
+*/
                         mInterstitialAd = null;
                     }
 
@@ -161,6 +168,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 });
             } else {
                 Log.d("TAG", "THE Intertiated was not Ready yet");
+//                Intent intent=new Intent(getApplicationContext(),MainActivity.class);
+//                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+//                startActivity(intent);
+
+
             }
         });
     }
@@ -172,14 +184,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         audioList.setHasFixedSize(true);
         audioList.setLayoutManager(new LinearLayoutManager(MainActivity.this));
         audioList.setAdapter(audioListAdapter);
+
         sharedpreferences = getSharedPreferences("", Context.MODE_PRIVATE);
         editor = sharedpreferences.edit();
 //BANNER ADS
         AdRequest adRequest = new AdRequest.Builder().build();
         ad_view.loadAd(adRequest);
-        showAds();
+        loadAds();
         MobileAds.initialize(this, initializationStatus -> {
         });
+
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -187,12 +201,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         String path = MainActivity.this.getExternalFilesDir("/").getAbsolutePath();
         File directory = new File(path);
         allFiles = directory.listFiles();
-        Arrays.sort(allFiles, Comparator.comparingLong(File::lastModified).reversed());
+
+        if (allFiles != null && allFiles.length > 0) {
+            Arrays.sort(allFiles, Comparator.comparingLong(File::lastModified).reversed());
+        }
+
         return allFiles;
     }
 
     //Interstitial Ad
-    private void showAds() {
+    private void loadAds() {
         AdRequest adRequest = new AdRequest.Builder().build();
         InterstitialAd.load(this, this.getResources().getString(R.string.admob_app_interstitial), adRequest,
                 new InterstitialAdLoadCallback() {
@@ -235,12 +253,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     //Start Recording and Get Path, Time, Date
     @SuppressLint("NewApi")
     public void startRecording() {
+        rVDisable = true;
         timer.setBase(SystemClock.elapsedRealtime());
         timeWhenStopped = 0;
         timer.start();
         Intent serviceIntent = new Intent(this, ForegroundService.class);
         this.startService(serviceIntent);
         pause_resume.setImageResource(R.drawable.icon_pause_recording);
+
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy_MM_dd_hh_mm_ss", Locale.CANADA);
         Date now = new Date();
         String recordPath = MainActivity.this.getExternalFilesDir("/").getAbsolutePath();
@@ -263,6 +283,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     //Stop Recording and Set Audio File in Path
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void stopRecording() {
+        rVDisable = false;
         timeWhenStopped = timer.getBase() - SystemClock.elapsedRealtime();
         timer.stop();
         isRecording = false;
@@ -316,42 +337,47 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     //Player sheet
     @Override
     public void onClickListener(File file, int position) {
-        playerDialog.show();
-        playBtn = playerDialog.findViewById(R.id.player_play_btn);
-        playerFilename = playerDialog.findViewById(R.id.player_filename);
-        playerseekBar = playerDialog.findViewById(R.id.player_seekBar);
-        playerHeader = playerDialog.findViewById(R.id.player_header_name);
-        playerFilename.setText(file.getName());
-        playerDialog.setCanceledOnTouchOutside(false);
-        Button btnCancel = playerDialog.findViewById(R.id._player_sheet_btn_cancel);
-//player Play Button
-        playerDialog.findViewById(R.id.player_play_btn).setOnClickListener(view -> {
-            if (isPlaying) {
-                isStopped = true;
-                playBtn.setImageResource(R.drawable.icon_play_player);
-                pauseAudio();
-            }
-//player Pause Button
-            else {
-                if (isStopped) {
-                    resumeAudio();
-                    playBtn.setImageResource(R.drawable.icon_pause_player);
-                    isStopped = false;
-                    return;
-                }
-                isPlaying = true;
-                playAudio(file);
 
-            }
-        });
-        //player Cancel Button
-        btnCancel.setOnClickListener(view -> {
-            if (isPlaying) {
-                stopAudio();
-            }
-            playerDialog.dismiss();
-            playerseekBar.setProgress(0);
-        });
+        if (rVDisable) {
+            Toast.makeText(this, "Can not play audio. Recording in progress", Toast.LENGTH_SHORT).show();
+        } else {
+            playerDialog.show();
+            playBtn = playerDialog.findViewById(R.id.player_play_btn);
+            playerFilename = playerDialog.findViewById(R.id.player_filename);
+            playerseekBar = playerDialog.findViewById(R.id.player_seekBar);
+            playerHeader = playerDialog.findViewById(R.id.player_header_name);
+            playerFilename.setText(file.getName());
+            playerDialog.setCanceledOnTouchOutside(false);
+            Button btnCancel = playerDialog.findViewById(R.id._player_sheet_btn_cancel);
+//player Play Button
+            playerDialog.findViewById(R.id.player_play_btn).setOnClickListener(view -> {
+                if (isPlaying) {
+                    isStopped = true;
+                    playBtn.setImageResource(R.drawable.icon_play_player);
+                    pauseAudio();
+                }
+//player Pause Button
+                else {
+                    if (isStopped) {
+                        resumeAudio();
+                        playBtn.setImageResource(R.drawable.icon_pause_player);
+                        isStopped = false;
+                        return;
+                    }
+                    isPlaying = true;
+                    playAudio(file);
+                }
+            });
+            //player Cancel Button
+            btnCancel.setOnClickListener(view -> {
+                if (isPlaying) {
+                    stopAudio();
+                }
+                playerDialog.dismiss();
+                playerseekBar.setProgress(0);
+            });
+        }
+
     }
 
     //Player sheet Stop Method

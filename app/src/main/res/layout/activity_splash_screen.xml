@@ -39,7 +39,7 @@
         android:background="@drawable/button_stroke"
         android:fontFamily="@font/nexalight"
         android:text="@string/get_started"
-        android:textAllCaps="true"
+        android:textAllCaps="false"
         android:textColor="#3b6b94"
         android:textSize="14dp"
         android:textStyle="bold"

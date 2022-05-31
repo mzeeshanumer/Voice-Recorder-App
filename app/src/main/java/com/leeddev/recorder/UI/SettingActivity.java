@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.View;
 import android.view.Window;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -55,52 +56,40 @@ public class SettingActivity extends AppCompatActivity {
         tv_file_name.setText(sharedpreferences.getString("filename", "audio"));
         default_name = findViewById(R.id.list_defaultFilename);
         switchScreenOn = findViewById(R.id.switch_toggle2);
-        switchScreenOn.setChecked(sharedpreferences.getBoolean("value", false));
+        //  switchScreenOn.setChecked(sharedpreferences.getBoolean("value", false));
         switchPauseCall = findViewById(R.id.switch_toggle1);
-        switchPauseCall.setChecked(sharedpreferences.getBoolean("value", false));
+        //   switchPauseCall.setChecked(sharedpreferences.getBoolean("value", false));
+        findViewById(R.id.list_screenOn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), "Coming Soon", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+        findViewById(R.id.list_pdc).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), "Coming Soon", Toast.LENGTH_SHORT).show();
+
+            }
+        });
 //HOME SCREEN
         btn_home.setOnClickListener(view -> super.onBackPressed());
+
 //FIRST SWITCH BUTTONS
         switchPauseCall.setOnClickListener(view -> {
 
+            Toast.makeText(getApplicationContext(),
+                    "Coming Soon",
+                    Toast.LENGTH_SHORT).show();
 
-            if (switchPauseCall.isChecked()) {
-                switchPauseCall.setClickable(false);
-                switchPauseCall.setEnabled(false);
-                // When switch checked
-//                    keepScreenOn(true);
-//                SharedPreferences.Editor editor = getSharedPreferences("save", MODE_PRIVATE).edit();
-//                editor.putBoolean("value", false);
-//                editor.apply();
-                switchPauseCall.setClickable(false);
-                switchPauseCall.setChecked(false);
-                Toast.makeText(getApplicationContext(),
-                        "Coming Soon",
-                        Toast.LENGTH_SHORT).show();
-            } else {
-                // When switch unchecked
-//                SharedPreferences.Editor editor = getSharedPreferences("save", MODE_PRIVATE).edit();
-//                editor.putBoolean("value", false);
-//                editor.apply();
-                switchPauseCall.setEnabled(false);
-                switchPauseCall.setClickable(false);
-                switchPauseCall.setChecked(false);
-            }
         });
 //SECOND SWITCH BUTTONS
 
         switchScreenOn.setOnClickListener(view -> {
-            if (switchScreenOn.isChecked()) {
-                // When switch checked
-                switchScreenOn.setEnabled(false);
-                switchScreenOn.setClickable(false);
-                switchScreenOn.setChecked(false);
-                Toast.makeText(getApplicationContext(), "Coming Soon", Toast.LENGTH_SHORT).show();
-            } else {// When switch unchecked
-                switchScreenOn.setEnabled(false);
-                switchScreenOn.setClickable(false);
-                switchScreenOn.setChecked(false);
-            }
+            Toast.makeText(getApplicationContext(), "Coming Soon", Toast.LENGTH_SHORT).show();
+
+
         });
 //DEFAULT FILE NAME
         default_name.setOnClickListener(v -> showDialog(SettingActivity.this));

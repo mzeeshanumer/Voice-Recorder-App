@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.media.MediaMetadataRetriever;
 import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,6 +36,7 @@ public class AudioListAdapter extends RecyclerView.Adapter<AudioListAdapter.Audi
     LinearLayout btn_delete;
     LinearLayout btn_details;
     Animation fadeInAnimation;
+    static MediaMetadataRetriever mediaMetadataRetriever;
     Context context;
     private onItemListClickbabu onItemListClick;
 
@@ -125,7 +127,8 @@ public class AudioListAdapter extends RecyclerView.Adapter<AudioListAdapter.Audi
     @NonNull
     private static String getDuration(File file) {
         try {
-            MediaMetadataRetriever mediaMetadataRetriever = new MediaMetadataRetriever();
+            mediaMetadataRetriever = new MediaMetadataRetriever();
+
             mediaMetadataRetriever.setDataSource(file.getAbsolutePath());
             String durationStr = mediaMetadataRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION);
             return utils.formateMilliSeccond(Long.parseLong(durationStr));
